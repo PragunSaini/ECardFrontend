@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { initTest, hello } from './reducers/testReducer'
+
+const App = props => {
+    const { store } = props
+    console.log(store.getState())
+
+    useEffect(() => {
+        store.dispatch(initTest())
+    }, [])
+
+    const addToTest = () => {
+        // store.dispatch(addTest(100))
+        // store.dispatch(joinRoom())
+        store.dispatch(hello())
+    }
+
+    return (
+        <div>
+            <p>{store.getState().test}</p>
+            <button onClick={addToTest} type='button'>
+                Add State
+            </button>
+        </div>
+    )
 }
 
-export default App;
+// const mapStateToProps = state => {
+//     return {
+//         test: state.test
+//     }
+// }
+
+// const mapDispatchToProps = {
+//     initTest,
+//     addTest
+// }
+
+// export default connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(App)
+
+export default App
