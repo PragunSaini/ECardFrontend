@@ -1,26 +1,45 @@
 import React, { useEffect } from 'react'
 
-import { initTest, hello } from './reducers/testReducer'
+import { connect } from './reducers/socketReducer'
+import { socketListen, socketDontListen, emitData } from './reducers/testReducer'
 
 const App = props => {
     const { store } = props
-    console.log(store.getState())
 
     useEffect(() => {
-        store.dispatch(initTest())
-    }, [])
+        store.dispatch(connect())
+        store.dispatch(socketListen())
+    }, [store])
 
-    const addToTest = () => {
-        // store.dispatch(addTest(100))
-        // store.dispatch(joinRoom())
-        store.dispatch(hello())
+    useEffect(() => {
+        console.log('JUST RENDERED BABY')
+    })
+
+    const onClick = e => {
+        e.preventDefault()
+        store.dispatch(socketListen())
+    }
+
+    const onClick0 = e => {
+        e.preventDefault()
+        store.dispatch(socketDontListen())
+    }
+
+    const onClick2 = e => {
+        e.preventDefault()
+        store.dispatch(emitData())
     }
 
     return (
         <div>
-            <p>{store.getState().test}</p>
-            <button onClick={addToTest} type='button'>
-                Add State
+            <button onClick={onClick} type='button'>
+                Enable Listener
+            </button>
+            <button onClick={onClick0} type='button'>
+                Disable Listener
+            </button>
+            <button onClick={onClick2} type='button'>
+                Emit Data
             </button>
         </div>
     )

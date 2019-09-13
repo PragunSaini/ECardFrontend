@@ -4,10 +4,12 @@ import socketMiddleware from './middleware/socketMiddleware'
 
 // Import the reducers
 import testReducer from './reducers/testReducer'
+import socketReducer from './reducers/socketReducer'
 
 // Create a combined reducer
 const reducer = combineReducers({
-    test: testReducer
+    test: testReducer,
+    socket: socketReducer
 })
 
 // Create the store and apply relevant middlewares
