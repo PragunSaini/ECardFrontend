@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
 import Login from './components/Login'
+import Register from './components/Register'
+import Home from './components/Home'
 
 import { connect as connectToSocket } from './reducers/socketReducer'
 import { socketListen, socketDontListen, emitData } from './reducers/testReducer'
 
 const App = props => {
-    const { connectToSocket, socketListen, socketDontListen, emitData } = props
+    const { user, connectToSocket, socketListen, socketDontListen, emitData } = props
 
     useEffect(() => {
         connectToSocket()
@@ -35,7 +38,23 @@ const App = props => {
 
     return (
         <div>
-            <Login />
+            <Router>
+                <div>
+                    <Route
+                        exact
+                        path='/'
+                        render={() =>
+                            Object.prototype.hasOwnProperty.call(user, 'username') ? (
+                                <Home />
+                            ) : (
+                                <Redirect to='/login' />
+                            )
+                        }
+                    />
+                    <Route path='/login' render={() => <Login />} />
+                    <Route path='/register' render={() => <Register />} />
+                </div>
+            </Router>
             <button onClick={onClick} type='button'>
                 Enable Listener
             </button>
@@ -49,6 +68,12 @@ const App = props => {
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
 const mapDispatchToProps = {
     socketListen,
     socketDontListen,
@@ -57,6 +82,6 @@ const mapDispatchToProps = {
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(App)

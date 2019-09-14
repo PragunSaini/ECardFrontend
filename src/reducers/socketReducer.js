@@ -1,9 +1,12 @@
 import io from 'socket.io-client'
+import { ACTIONS } from '../middleware/socketMiddleware'
 
 const socketReducer = (state = null, action) => {
     switch (action.type) {
         case 'CONNECT':
-            return io('http://localhost:5000')
+            return io('http://localhost:5000', {
+                autoConnect: false
+            })
         default:
             return state
     }
@@ -12,6 +15,14 @@ const socketReducer = (state = null, action) => {
 export const connect = () => {
     return {
         type: 'CONNECT'
+    }
+}
+
+export const authSocket = email => {
+    return {
+        type: ACTIONS.CONNECT,
+        event: 'authenticate',
+        data: { email }
     }
 }
 

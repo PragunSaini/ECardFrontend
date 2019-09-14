@@ -1,4 +1,5 @@
 export const ACTIONS = Object.freeze({
+    CONNECT: 'SOCKET_CONNECT',
     SUBSCRIBE: 'SOCKET_IO_SUBSCRIBE',
     UNSUBSCRIBE: 'SOCKET_IO_UNSUBSCRIBE',
     EMIT: 'SOCKET_IO_EMIT'
@@ -9,9 +10,25 @@ export const ACTIONS = Object.freeze({
 const socketMiddleware = store => next => action => {
     console.log('Action => ', action)
 
+    const { socket, test } = store.getState()
     const { type, event, handle, data } = action
 
     switch (type) {
+        // to connect and authenticate
+        case ACTIONS.CONNECT: {
+            socket.open()
+            socket.emit('try to connect')
+            socket.on('connect', () => {
+                socket.emit('authentication', data)
+                socket.on('authenticated', () => {
+                    console.log('SUCCESFULLY CONNECTED SOCKET')
+                })
+                socket.on('unauthorized', error => {
+                    console.log("COULDN'T AUTH SOCKET", error)
+                })
+            })
+            break
+        }
         // Add event listener to socket.on event
         case ACTIONS.SUBSCRIBE: {
             store.dispatch({
@@ -20,14 +37,14 @@ const socketMiddleware = store => next => action => {
                 handle
             })
 
-            store.getState().socket.on(event, handle)
+            socket.on(event, handle)
             break
         }
         // remove the event listener from the socket.on event
         case ACTIONS.UNSUBSCRIBE: {
-            const eventHandler = store.getState().test[event]
+            const eventHandler = test[event]
             console.log(eventHandler)
-            store.getState().socket.removeListener(event, eventHandler)
+            socket.removeListener(event, eventHandler)
 
             store.dispatch({
                 type: `UNSUBSCRIBE`,
@@ -41,7 +58,7 @@ const socketMiddleware = store => next => action => {
                 type: `EMIT ${event}`,
                 data
             })
-            store.getState().socket.emit(event, data)
+            socket.emit(event, data)
             break
         }
         default:
