@@ -25,6 +25,7 @@ module.exports = {
                 extensions: ['.js', '.jsx']
             }
         ],
-        'react/prop-types': 0
+        'react/prop-types': 0,
+        'no-shadow': 0
     }
 }

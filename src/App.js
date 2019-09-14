@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 
-import { connect } from './reducers/socketReducer'
+import Login from './components/Login'
+
+import { connect as connectToSocket } from './reducers/socketReducer'
 import { socketListen, socketDontListen, emitData } from './reducers/testReducer'
 
 const App = props => {
-    const { store } = props
+    const { connectToSocket, socketListen, socketDontListen, emitData } = props
 
     useEffect(() => {
-        store.dispatch(connect())
-        store.dispatch(socketListen())
-    }, [store])
+        connectToSocket()
+        socketListen()
+    }, [])
 
     useEffect(() => {
         console.log('JUST RENDERED BABY')
@@ -17,21 +20,22 @@ const App = props => {
 
     const onClick = e => {
         e.preventDefault()
-        store.dispatch(socketListen())
+        socketListen()
     }
 
     const onClick0 = e => {
         e.preventDefault()
-        store.dispatch(socketDontListen())
+        socketDontListen()
     }
 
     const onClick2 = e => {
         e.preventDefault()
-        store.dispatch(emitData())
+        emitData()
     }
 
     return (
         <div>
+            <Login />
             <button onClick={onClick} type='button'>
                 Enable Listener
             </button>
@@ -45,20 +49,14 @@ const App = props => {
     )
 }
 
-// const mapStateToProps = state => {
-//     return {
-//         test: state.test
-//     }
-// }
+const mapDispatchToProps = {
+    socketListen,
+    socketDontListen,
+    emitData,
+    connectToSocket
+}
 
-// const mapDispatchToProps = {
-//     initTest,
-//     addTest
-// }
-
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(App)
-
-export default App
+export default connect(
+    null,
+    mapDispatchToProps
+)(App)

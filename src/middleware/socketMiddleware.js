@@ -15,7 +15,7 @@ const socketMiddleware = store => next => action => {
         // Add event listener to socket.on event
         case ACTIONS.SUBSCRIBE: {
             store.dispatch({
-                type: `SUBSCRIBE ${event}`,
+                type: `SUBSCRIBE`,
                 event,
                 handle
             })
@@ -30,7 +30,7 @@ const socketMiddleware = store => next => action => {
             store.getState().socket.removeListener(event, eventHandler)
 
             store.dispatch({
-                type: `UNSUBSCRIBE ${event}`,
+                type: `UNSUBSCRIBE`,
                 event
             })
             break
