@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import registerService from '../services/registerService'
 
+import Notification from './Notification'
+
 // To register new users
 const Register = props => {
     const [show, setShow] = useState(false)
-    const [msg, setMSG] = useState('')
+    const [error, setError] = useState(false)
+    const [msg, setMsg] = useState('')
 
     // Send data to server for registration
     const register = async e => {
@@ -19,16 +22,22 @@ const Register = props => {
             props.history.push('/login')
         } catch (error) {
             setShow(true)
-            setMSG('Error while registering, please check console for error info')
+            setMsg(error.response.data.message)
+            setError(true)
             setInterval(() => {
                 setShow(false)
             }, 5000)
         }
     }
 
+    // Get notifications
+    const generateNotification = () => {
+        return <Notification show={show} message={msg} error={error} />
+    }
+
     return (
         <>
-            {show && <Notification msg={msg} />}
+            {generateNotification()}
             <form onSubmit={register}>
                 <label htmlFor='username'>
                     Username :
@@ -47,11 +56,5 @@ const Register = props => {
         </>
     )
 }
-
-const Notification = ({ msg }) => (
-    <div>
-        <p>{msg}</p>
-    </div>
-)
 
 export default withRouter(Register)
