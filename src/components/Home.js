@@ -7,7 +7,7 @@ const Home = props => {
     return (
         <>
             <h1>E-Card Home page</h1>
-            <p>Username : {user.username}</p>
+            <p>Username : {user.displayName}</p>
         </>
     )
 }

@@ -43,13 +43,7 @@ const App = props => {
                     <Route
                         exact
                         path='/'
-                        render={() =>
-                            Object.prototype.hasOwnProperty.call(user, 'username') ? (
-                                <Home />
-                            ) : (
-                                <Redirect to='/login' />
-                            )
-                        }
+                        render={() => (user !== null ? <Home /> : <Redirect to='/login' />)}
                     />
                     <Route path='/login' render={() => <Login />} />
                     <Route path='/register' render={() => <Register />} />

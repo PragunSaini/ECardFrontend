@@ -7,7 +7,7 @@ import * as firebase from 'firebase/app'
 // Add the Firebase products that you want to use
 import 'firebase/auth'
 
-import { authSocket } from '../reducers/socketReducer'
+import { authenticateSocket } from '../reducers/socketReducer'
 
 const firebaseConfig = {
     apiKey: 'AIzaSyCDkzBfv1mFN1oFQn2o-0qDBx69lIQiaIg',
@@ -20,9 +20,11 @@ const firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig)
 
+// To login users
 const Login = props => {
-    const { authSocket } = props
+    const { authenticateSocket } = props
 
+    // Login the user
     const login = e => {
         e.preventDefault()
         const email = e.target.email.value
@@ -34,9 +36,11 @@ const Login = props => {
                 console.log(error, 'COULDNT SIGN IN TRY AGAIN')
             })
         if (firebase.auth().currentUser) {
-            console.log(firebase.auth().currentUser)
-            authSocket(email)
-            props.history.push('/')
+            // User has logged in so send thumbs up to server
+            authenticateSocket(firebase.auth().currentUser.uid)
+            setInterval(() => {
+                props.history.push('/')
+            }, 2000)
         }
     }
 
@@ -64,7 +68,7 @@ const Login = props => {
 }
 
 const mapDispatchToProps = {
-    authSocket
+    authenticateSocket
 }
 
 export default withRouter(

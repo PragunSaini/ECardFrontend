@@ -1,3 +1,4 @@
+// To manage the client side socekt and establish connection
 import io from 'socket.io-client'
 import { ACTIONS } from '../middleware/socketMiddleware'
 
@@ -18,11 +19,11 @@ export const connect = () => {
     }
 }
 
-export const authSocket = email => {
+export const authenticateSocket = uid => {
     return {
         type: ACTIONS.CONNECT,
         event: 'authenticate',
-        data: { email }
+        data: { uid }
     }
 }
 

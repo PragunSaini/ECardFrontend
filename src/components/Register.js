@@ -2,29 +2,33 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import registerService from '../services/registerService'
 
+// To register new users
 const Register = props => {
     const [show, setShow] = useState(false)
+    const [msg, setMSG] = useState('')
 
+    // Send data to server for registration
     const register = async e => {
         e.preventDefault()
         const username = e.target.username.value
         const email = e.target.email.value
         const password = e.target.password.value
-        const user = await registerService.userRegister(username, email, password)
-        if (user === null) {
+        try {
+            const user = await registerService.userRegister(username, email, password)
+            console.log(`NEW USER REGISTERED => ${user}`)
+            props.history.push('/login')
+        } catch (error) {
             setShow(true)
+            setMSG(error)
             setInterval(() => {
                 setShow(!show)
             }, 3000)
-        } else {
-            console.log(user)
-            props.history.push('/login')
         }
     }
 
     return (
         <>
-            {show && <Notification msg='Please check details, error occured' />}
+            {show && <Notification msg={msg} />}
             <form onSubmit={register}>
                 <label htmlFor='username'>
                     Username :

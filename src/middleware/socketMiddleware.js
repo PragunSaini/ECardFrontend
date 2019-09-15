@@ -16,15 +16,20 @@ const socketMiddleware = store => next => action => {
     switch (type) {
         // to connect and authenticate
         case ACTIONS.CONNECT: {
-            socket.open()
-            socket.emit('try to connect')
             socket.on('connect', () => {
                 socket.emit('authentication', data)
                 socket.on('authenticated', () => {
                     console.log('SUCCESFULLY CONNECTED SOCKET')
                 })
                 socket.on('unauthorized', error => {
-                    console.log("COULDN'T AUTH SOCKET", error)
+                    console.log("COULDN'T AUTHENTICATE SOCKET", error)
+                })
+            })
+            socket.open()
+            socket.on('user information', user => {
+                store.dispatch({
+                    type: 'SET_USER_INFO',
+                    user
                 })
             })
             break

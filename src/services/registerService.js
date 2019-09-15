@@ -8,11 +8,10 @@ const userRegister = async (username, email, password) => {
             email,
             password
         })
-        console.log(userData)
         return userData.data
     } catch (error) {
-        console.log(error)
-        return null
+        console.log('ERROR WHILE REGISTERING =>', error)
+        return error
     }
 }
 
