@@ -15,14 +15,14 @@ const Register = props => {
         const password = e.target.password.value
         try {
             const user = await registerService.userRegister(username, email, password)
-            console.log(`NEW USER REGISTERED => ${user}`)
+            console.log(`NEW USER REGISTERED`, user)
             props.history.push('/login')
         } catch (error) {
             setShow(true)
-            setMSG(error)
+            setMSG('Error while registering, please check console for error info')
             setInterval(() => {
-                setShow(!show)
-            }, 3000)
+                setShow(false)
+            }, 5000)
         }
     }
 

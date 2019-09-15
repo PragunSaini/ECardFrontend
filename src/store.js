@@ -4,13 +4,13 @@ import thunk from 'redux-thunk'
 import socketMiddleware from './middleware/socketMiddleware'
 
 // Import the reducers
-import testReducer from './reducers/testReducer'
+import eventHandlerReducer from './reducers/eventHandlerReducer'
 import socketReducer from './reducers/socketReducer'
 import userReducer from './reducers/userReducer'
 
 // Create a combined reducer
 const reducer = combineReducers({
-    test: testReducer,
+    eventHandlers: eventHandlerReducer,
     socket: socketReducer,
     user: userReducer
 })

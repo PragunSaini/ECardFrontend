@@ -1,5 +1,4 @@
 // Reducer to handle setting and storing user information
-// import { ACTIONS } from '../middleware/socketMiddleware'
 
 const userReducer = (state = null, action) => {
     switch (action.type) {

@@ -7,34 +7,17 @@ import Register from './components/Register'
 import Home from './components/Home'
 
 import { connect as connectToSocket } from './reducers/socketReducer'
-import { socketListen, socketDontListen, emitData } from './reducers/testReducer'
 
 const App = props => {
-    const { user, connectToSocket, socketListen, socketDontListen, emitData } = props
+    const { user, connectToSocket } = props
 
     useEffect(() => {
         connectToSocket()
-        socketListen()
     }, [])
 
     useEffect(() => {
         console.log('JUST RENDERED BABY')
     })
-
-    const onClick = e => {
-        e.preventDefault()
-        socketListen()
-    }
-
-    const onClick0 = e => {
-        e.preventDefault()
-        socketDontListen()
-    }
-
-    const onClick2 = e => {
-        e.preventDefault()
-        emitData()
-    }
 
     return (
         <div>
@@ -49,15 +32,6 @@ const App = props => {
                     <Route path='/register' render={() => <Register />} />
                 </div>
             </Router>
-            <button onClick={onClick} type='button'>
-                Enable Listener
-            </button>
-            <button onClick={onClick0} type='button'>
-                Disable Listener
-            </button>
-            <button onClick={onClick2} type='button'>
-                Emit Data
-            </button>
         </div>
     )
 }
@@ -69,9 +43,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    socketListen,
-    socketDontListen,
-    emitData,
     connectToSocket
 }
 

@@ -1,4 +1,5 @@
-// To manage the client side socekt and establish connection
+// To manage the client side socket state and establish connection
+
 import io from 'socket.io-client'
 import { ACTIONS } from '../middleware/socketMiddleware'
 
@@ -13,12 +14,14 @@ const socketReducer = (state = null, action) => {
     }
 }
 
+// Run at first loading of app to initialize socket
 export const connect = () => {
     return {
         type: 'CONNECT'
     }
 }
 
+// Run after login to authenticate socket
 export const authenticateSocket = uid => {
     return {
         type: ACTIONS.CONNECT,
