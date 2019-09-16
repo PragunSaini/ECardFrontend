@@ -39,6 +39,8 @@ const BackGround1 = styled.div`
 const Header = styled.div`
     max-height: 100vh;
     max-width: 100vw;
+    width: 100vw;
+    height: 100vh;
     position: relative;
     transition: all 1s;
     display: flex;
@@ -46,9 +48,28 @@ const Header = styled.div`
     justify-content: flex-start;
 `
 
+const Section = styled.section`
+    padding: 30px 0;
+    background: #fff;
+`
+
+const Wrapper = styled.div`
+    width: 70%;
+    position: relative;
+    margin: 0 auto;
+    font-size: 1em;
+    color: #000;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+`
+
 export default {
     Body,
     BackGround2,
     BackGround1,
-    Header
+    Header,
+    Section,
+    Wrapper
 }
