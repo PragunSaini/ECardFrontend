@@ -12,7 +12,7 @@ import Buttons from '../styledcomponents/Buttons'
 const HomeHeader = () => (
     <Layout.Header>
         <NavBar.NavBar>
-            <Logo />
+            <Logo logowidth='100%' />
             <NavBar.SubNav>
                 <NavBar.StyledUL>
                     <NavLinks.HowToPlay />

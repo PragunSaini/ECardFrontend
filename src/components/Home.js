@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import HomeHeader from './HomeHeader'
 import HowToPlay from './HowToPlay'
+import Footer from './Footer'
 
 import Layout from '../styledcomponents/Layout'
 
@@ -15,6 +16,7 @@ const Home = props => {
             <Layout.BackGround1 />
             <HomeHeader />
             <HowToPlay />
+            <Footer />
         </>
     )
 }

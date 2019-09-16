@@ -8,7 +8,7 @@ const StyledLink = styled(Link)`
     text-decoration: none;
 `
 
-const Logo = () => {
+const Logo = ({ logowidth }) => {
     return (
         <StyledLink to='/'>
             <div
@@ -23,7 +23,7 @@ const Logo = () => {
                     src={logo}
                     alt='logo'
                     style={{
-                        width: '100%',
+                        width: logowidth,
                         maxWidth: '70px',
                         height: 'auto',
                         display: 'inline-block',
