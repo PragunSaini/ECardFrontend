@@ -10,6 +10,7 @@
 
 # production
 /build
+.netlify
 
 #development
 firebaseConfig.js
