@@ -1,27 +1,15 @@
 import React from 'react'
 
-import Logo from './Logo'
-import NavLinks from './NavLinks'
+import Navigation from './Navigation'
 
 import Layout from '../styledcomponents/Layout'
-import NavBar from '../styledcomponents/NavBar'
 import HeaderHeading from '../styledcomponents/HeaderHeading'
 import HeaderMain from '../styledcomponents/HeaderMain'
 import Buttons from '../styledcomponents/Buttons'
 
 const HomeHeader = () => (
     <Layout.Header>
-        <NavBar.NavBar>
-            <Logo logowidth='100%' />
-            <NavBar.SubNav>
-                <NavBar.StyledUL>
-                    <NavLinks.HowToPlay />
-                    <NavLinks.Chat />
-                    <NavLinks.Login />
-                    <NavLinks.Register />
-                </NavBar.StyledUL>
-            </NavBar.SubNav>
-        </NavBar.NavBar>
+        <Navigation />
         <HeaderHeading>E-Card : A Real Time Strategy Multiplayer Game</HeaderHeading>
         <HeaderMain.HeaderMain>
             <HeaderMain.MainBox>

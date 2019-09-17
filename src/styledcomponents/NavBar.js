@@ -7,6 +7,7 @@ const NavBar = styled.div`
     align-items: center;
     margin-bottom: 50px;
     height: 130px;
+    width: 100%;
     padding: 30px 8%;
 `
 

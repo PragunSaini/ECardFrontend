@@ -8,6 +8,12 @@ import 'firebase/auth'
 import firebaseConfig from '../firebaseConfig'
 
 import { authenticateSocket } from '../reducers/socketReducer'
+import Navigation from './Navigation'
+
+import Layout from '../styledcomponents/Layout'
+import LoginStyles from '../styledcomponents/LoginStyles'
+
+const { LoginSection, LoginBox, NavBox, GuestBox, UserBox, Heading } = LoginStyles
 
 firebase.initializeApp(firebaseConfig)
 
@@ -40,7 +46,7 @@ const Login = props => {
 
     return (
         <>
-            <h1>Welcome To E-Card</h1>
+            {/* <h1>Welcome To E-Card</h1>
             <form onSubmit={login}>
                 <label htmlFor='email'>
                     Enter Email :
@@ -55,7 +61,22 @@ const Login = props => {
 
             <p>
                 Not registered, go <Link to='/register'>here</Link>
-            </p>
+            </p> */}
+            <Layout.BackGround2 />
+
+            <LoginSection>
+                <NavBox>
+                    <Navigation />
+                </NavBox>
+                <LoginBox>
+                    <UserBox>
+                        <Heading>Already registered? Login here</Heading>
+                    </UserBox>
+                    <GuestBox>
+                        <Heading>Play as Guest</Heading>
+                    </GuestBox>
+                </LoginBox>
+            </LoginSection>
         </>
     )
 }
