@@ -1,31 +1,73 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
-// Firebase App (the core Firebase SDK) is always required and must be listed first
+import { withRouter } from 'react-router-dom'
 import * as firebase from 'firebase/app'
-// Add the Firebase products that you want to use
 import 'firebase/auth'
 import firebaseConfig from '../firebaseConfig'
 
 import { authenticateSocket } from '../reducers/socketReducer'
-import Navigation from './Navigation'
 
+import Logo from './Logo'
+import NavLinks from './NavLinks'
+import Guest from './Guest'
+import User from './User'
+
+import NavBar from '../styledcomponents/NavBar'
 import Layout from '../styledcomponents/Layout'
 import LoginStyles from '../styledcomponents/LoginStyles'
 
-const { LoginSection, LoginBox, NavBox, GuestBox, UserBox, Heading } = LoginStyles
+const { LoginSection, LoginBox, NavBox } = LoginStyles
 
+// Initializing firebase
 firebase.initializeApp(firebaseConfig)
 
 // To login users
 const Login = props => {
     const { authenticateSocket } = props
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+    const [guest, setGuest] = useState('')
+
+    useEffect(() => {
+        setEmail('')
+        setPassword('')
+        setError('')
+    }, [])
+
+    const setValue1 = e => {
+        setEmail(e.target.value)
+    }
+
+    const setValue2 = e => {
+        setPassword(e.target.value)
+    }
+
+    const setValue3 = e => {
+        setGuest(e.target.value)
+    }
+
+    const returnError = () => (error !== '' ? `* ${error}` : '')
+
+    const errorhandler = error => {
+        switch (error.code) {
+            case 'auth/wrong-password':
+                setError('The password is invalid')
+                break
+            case 'auth/user-not-found':
+                setError('No user with that email exists. Please register first')
+                break
+            case 'auth/invalid-email':
+                setError('Please enter a valid email address')
+                break
+            default:
+                break
+        }
+    }
 
     // Login the user
     const login = e => {
         e.preventDefault()
-        const email = e.target.email.value
-        const password = e.target.password.value
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
@@ -39,42 +81,41 @@ const Login = props => {
                 }
             })
             .catch(error => {
-                console.log("Can't LOG IN => ", error)
+                errorhandler(error)
+                console.log(error)
                 firebase.auth().signOut()
             })
     }
 
+    const guestLogin = e => {
+        e.preventDefault()
+        // const
+    }
+
     return (
         <>
-            {/* <h1>Welcome To E-Card</h1>
-            <form onSubmit={login}>
-                <label htmlFor='email'>
-                    Enter Email :
-                    <input type='email' name='email' id='email' />
-                </label>
-                <label htmlFor='password'>
-                    Enter Password :
-                    <input type='password' name='password' id='password' />
-                </label>
-                <button type='submit'>Guest Login</button>
-            </form>
-
-            <p>
-                Not registered, go <Link to='/register'>here</Link>
-            </p> */}
             <Layout.BackGround2 />
-
             <LoginSection>
                 <NavBox>
-                    <Navigation />
+                    <NavBar.NavBar>
+                        <Logo logowidth='100%' />
+                        <NavBar.SubNav>
+                            <NavBar.StyledUL>
+                                <NavLinks.Register />
+                            </NavBar.StyledUL>
+                        </NavBar.SubNav>
+                    </NavBar.NavBar>
                 </NavBox>
                 <LoginBox>
-                    <UserBox>
-                        <Heading>Already registered? Login here</Heading>
-                    </UserBox>
-                    <GuestBox>
-                        <Heading>Play as Guest</Heading>
-                    </GuestBox>
+                    <User
+                        login={login}
+                        email={email}
+                        password={password}
+                        setValue1={setValue1}
+                        setValue2={setValue2}
+                        returnError={returnError}
+                    />
+                    <Guest guest={guest} setValue3={setValue3} guestLogin={guestLogin} />
                 </LoginBox>
             </LoginSection>
         </>

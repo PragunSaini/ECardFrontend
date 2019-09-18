@@ -18,7 +18,7 @@ const NavBox = styled.div`
 
 const LoginBox = styled.div`
     width: 75%;
-    height: 75%;
+    height: 65%;
     background: #f2f2f2;
     border-radius: 10px;
     box-shadow: 1px 1px 10px #222;
@@ -46,8 +46,55 @@ const UserBox = styled.div`
 `
 
 const Heading = styled.h2`
-    font-size: 2em;
+    font-size: 1.5em;
     margin: 30px auto 20px;
+`
+
+const Form = styled.form`
+    margin: 30px auto 20px;
+    width: 90%;
+    text-align: left;
+    padding: 0 20px 40px;
+    border-bottom: 1px solid #222;
+`
+
+const Label = styled.label`
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin: 20px auto;
+`
+
+const Input = styled.input`
+    margin: 10px 0;
+    width: 90%;
+    height: 50px;
+    font-size: 0.8em;
+    padding-left: 5px;
+    transition: all 0.5s;
+
+    :focus {
+        border-bottom: 1px solid ${props => props.color};
+    }
+`
+
+const ErrorBox = styled.div`
+    display: flex;
+    font-size: 0.9em;
+    color: #f00;
+    transition: all 0.5s;
+`
+
+const RegisterBox = styled.div`
+    width: 100%;
+    margin: 20px auto;
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 export default {
@@ -56,5 +103,10 @@ export default {
     NavBox,
     GuestBox,
     UserBox,
-    Heading
+    Heading,
+    Form,
+    Input,
+    Label,
+    ErrorBox,
+    RegisterBox
 }
