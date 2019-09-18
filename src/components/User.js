@@ -47,7 +47,7 @@ const User = ({ login, email, password, setValue1, setValue2, returnError }) => 
                 <ErrorBox>{returnError()}</ErrorBox>
             </Form>
             <RegisterBox>
-                To register, head over{' '}
+                To register, head over
                 <Link
                     style={{
                         color: '#4e458d',
@@ -55,7 +55,6 @@ const User = ({ login, email, password, setValue1, setValue2, returnError }) => 
                     }}
                     to='/register'
                 >
-                    {' '}
                     here
                 </Link>
             </RegisterBox>

@@ -28,6 +28,18 @@ const LoginBox = styled.div`
     color: black;
 `
 
+const RegBox = styled.div`
+    width: 50%;
+    height: 65%;
+    background: #f2f2f2;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px #222;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: black;
+`
+
 const GuestBox = styled.div`
     width: 50%;
     display: flex;
@@ -58,6 +70,15 @@ const Form = styled.form`
     border-bottom: 1px solid #222;
 `
 
+const RegForm = styled.div`
+    width: 90%;
+    margin: 5px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+`
+
 const Label = styled.label`
     font-size: 1.5em;
     display: flex;
@@ -70,7 +91,7 @@ const Label = styled.label`
 
 const Input = styled.input`
     margin: 10px 0;
-    width: 90%;
+    width: 100%;
     height: 50px;
     font-size: 0.8em;
     padding-left: 5px;
@@ -89,12 +110,11 @@ const ErrorBox = styled.div`
 `
 
 const RegisterBox = styled.div`
-    width: 100%;
-    margin: 20px auto;
-    font-size: 1.5em;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    font-size: 1.2em;
 `
 
 export default {
@@ -108,5 +128,7 @@ export default {
     Input,
     Label,
     ErrorBox,
-    RegisterBox
+    RegisterBox,
+    RegBox,
+    RegForm
 }

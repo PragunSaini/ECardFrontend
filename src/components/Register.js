@@ -2,14 +2,18 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import registerService from '../services/registerService'
 
-import Notification from './Notification'
+import Logo from './Logo'
+import NavLinks from './NavLinks'
+
+import NavBar from '../styledcomponents/NavBar'
+import Buttons from '../styledcomponents/Buttons'
+import Layout from '../styledcomponents/Layout'
+import LoginStyles from '../styledcomponents/LoginStyles'
+
+const { LoginSection, RegBox, RegForm, NavBox, Heading, Label, Input, ErrorBox } = LoginStyles
 
 // To register new users
 const Register = props => {
-    const [show, setShow] = useState(false)
-    const [error, setError] = useState(false)
-    const [msg, setMsg] = useState('')
-
     // Send data to server for registration
     const register = async e => {
         e.preventDefault()
@@ -20,25 +24,12 @@ const Register = props => {
             const user = await registerService.userRegister(username, email, password)
             console.log(`NEW USER REGISTERED`, user)
             props.history.push('/login')
-        } catch (error) {
-            setShow(true)
-            setMsg(error.response.data.message)
-            setError(true)
-            setInterval(() => {
-                setShow(false)
-            }, 5000)
-        }
-    }
-
-    // Get notifications
-    const generateNotification = () => {
-        return <Notification show={show} message={msg} error={error} />
+        } catch (error) {}
     }
 
     return (
         <>
-            {generateNotification()}
-            <form onSubmit={register}>
+            {/* <form onSubmit={register}>
                 <label htmlFor='username'>
                     Username :
                     <input type='text' name='username' id='username' />
@@ -52,7 +43,53 @@ const Register = props => {
                     <input type='password' id='password' name='password' />
                 </label>
                 <button type='submit'>Register</button>
-            </form>
+            </form> */}
+            <Layout.BackGround2 />
+            <LoginSection>
+                <NavBox>
+                    <NavBar.NavBar>
+                        <Logo logowidth='100%' />
+                        <NavBar.SubNav>
+                            <NavBar.StyledUL>
+                                <NavLinks.Login />
+                            </NavBar.StyledUL>
+                        </NavBar.SubNav>
+                    </NavBar.NavBar>
+                </NavBox>
+                <RegBox>
+                    <Heading
+                        style={{
+                            height: '30px'
+                        }}
+                    >
+                        Register an account
+                    </Heading>
+                    <RegForm>
+                        <Label htmlFor='display'>
+                            Display Name :
+                            <Input type='text' id='display' name='display' />
+                        </Label>
+                        <Label htmlFor='display'>
+                            Display Name :
+                            <Input type='text' id='display' name='display' />
+                        </Label>
+                        <Label htmlFor='display'>
+                            Display Name :
+                            <Input type='text' id='display' name='display' />
+                        </Label>
+                        <ErrorBox
+                            style={{
+                                marginBottom: '20px'
+                            }}
+                        >
+                            WOWjfsdjkfkdsgfkjdsgdsukOWs
+                        </ErrorBox>
+                        <Buttons.StyledButton width='50%' color='black'>
+                            Ohaio
+                        </Buttons.StyledButton>
+                    </RegForm>
+                </RegBox>
+            </LoginSection>
         </>
     )
 }
