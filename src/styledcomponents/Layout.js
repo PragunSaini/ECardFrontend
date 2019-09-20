@@ -6,6 +6,7 @@ const Body = styled.div`
     font-size: 0.875em;
     letter-spacing: 0.063em;
     line-height: 1;
+    position: relative;
 `
 const BackGround2 = styled.div`
     position: fixed;

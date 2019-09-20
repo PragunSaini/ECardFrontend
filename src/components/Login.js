@@ -6,6 +6,7 @@ import 'firebase/auth'
 import firebaseConfig from '../firebaseConfig'
 
 import { authenticateSocket } from '../reducers/socketReducer'
+import { notify } from '../reducers/notificationReducer'
 
 import Logo from './Logo'
 import NavLinks from './NavLinks'
@@ -23,7 +24,7 @@ firebase.initializeApp(firebaseConfig)
 
 // To login users
 const Login = props => {
-    const { authenticateSocket } = props
+    const { authenticateSocket, notify } = props
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -75,6 +76,7 @@ const Login = props => {
                 if (firebase.auth().currentUser) {
                     // User has logged in so send thumbs up to server
                     authenticateSocket(firebase.auth().currentUser.uid)
+                    notify('Succesfully Logged In', 3)
                     setInterval(() => {
                         props.history.push('/')
                     }, 2000)
@@ -123,7 +125,8 @@ const Login = props => {
 }
 
 const mapDispatchToProps = {
-    authenticateSocket
+    authenticateSocket,
+    notify
 }
 
 export default withRouter(

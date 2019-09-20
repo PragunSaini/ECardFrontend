@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom
 import Login from './components/Login'
 import Register from './components/Register'
 import Home from './components/Home'
+import Notification from './components/Notification'
 
 import Layout from './styledcomponents/Layout'
 
@@ -23,6 +24,7 @@ const App = props => {
 
     return (
         <Layout.Body>
+            <Notification />
             <Router>
                 <div>
                     <Route exact path='/' render={() => <Home />} />
