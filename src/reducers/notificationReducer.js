@@ -17,7 +17,7 @@ export const notify = (msg, timeout) => {
             message: msg
         })
 
-        setInterval(() => {
+        setTimeout(() => {
             dispatch({
                 type: 'TIMEOUT'
             })

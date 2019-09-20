@@ -28,9 +28,16 @@ const Register = () => (
     </StyledLI>
 )
 
+const User = ({ name }) => (
+    <StyledLI>
+        <StyledLink to='/user'>{name} 😄</StyledLink>
+    </StyledLI>
+)
+
 export default {
     Chat,
     HowToPlay,
     Login,
-    Register
+    Register,
+    User
 }

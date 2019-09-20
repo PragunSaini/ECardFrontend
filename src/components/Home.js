@@ -7,17 +7,15 @@ import Footer from './Footer'
 
 import Layout from '../styledcomponents/Layout'
 
-const Home = props => {
-    const { user } = props
-
+const Home = () => {
     return (
-        <>
+        <div>
             <Layout.BackGround2 />
             <Layout.BackGround1 />
             <HomeHeader />
             <HowToPlay />
             <Footer />
-        </>
+        </div>
     )
 }
 

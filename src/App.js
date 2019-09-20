@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import Login from './components/Login'
 import Register from './components/Register'
@@ -12,7 +12,7 @@ import Layout from './styledcomponents/Layout'
 import { connect as connectToSocket } from './reducers/socketReducer'
 
 const App = props => {
-    const { user, connectToSocket } = props
+    const { connectToSocket } = props
 
     useEffect(() => {
         connectToSocket()
@@ -36,17 +36,17 @@ const App = props => {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    }
-}
+// const mapStateToProps = state => {
+//     return {
+//         user: state.user
+//     }
+// }
 
 const mapDispatchToProps = {
     connectToSocket
 }
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(App)

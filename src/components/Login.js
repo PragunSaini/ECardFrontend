@@ -79,7 +79,7 @@ const Login = props => {
                     notify('Succesfully Logged In', 3)
                     setInterval(() => {
                         props.history.push('/')
-                    }, 2000)
+                    }, 3000)
                 }
             })
             .catch(error => {
