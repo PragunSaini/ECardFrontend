@@ -14,36 +14,47 @@ const { LoginSection, RegBox, RegForm, NavBox, Heading, Label, Input, ErrorBox }
 
 // To register new users
 const Register = props => {
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+
+    useState(() => {
+        setName('')
+        setEmail('')
+        setPassword('')
+        setError('')
+    }, [])
+
+    const returnError = () => (error !== '' ? `* ${error}` : '')
+
+    const errorHandler = err => {
+        switch (err.code) {
+            case 'auth/invalid-password':
+                setError('The password must be atleast 6 characters')
+                break
+            case 'auth/email-already-exists':
+                setError('The email address is already in use by another account')
+                break
+            default:
+                setError('')
+        }
+    }
+
     // Send data to server for registration
     const register = async e => {
         e.preventDefault()
-        const username = e.target.username.value
-        const email = e.target.email.value
-        const password = e.target.password.value
         try {
-            const user = await registerService.userRegister(username, email, password)
+            const user = await registerService.userRegister(name, email, password)
             console.log(`NEW USER REGISTERED`, user)
             props.history.push('/login')
-        } catch (error) {}
+        } catch (err) {
+            errorHandler(err.response.data)
+        }
     }
 
     return (
         <>
-            {/* <form onSubmit={register}>
-                <label htmlFor='username'>
-                    Username :
-                    <input type='text' name='username' id='username' />
-                </label>
-                <label htmlFor='email'>
-                    Email :
-                    <input type='email' name='email' id='email' />
-                </label>
-                <label htmlFor='password'>
-                    Password :
-                    <input type='password' id='password' name='password' />
-                </label>
-                <button type='submit'>Register</button>
-            </form> */}
             <Layout.BackGround2 />
             <LoginSection>
                 <NavBox>
@@ -67,25 +78,54 @@ const Register = props => {
                     <RegForm>
                         <Label htmlFor='display'>
                             Display Name :
-                            <Input type='text' id='display' name='display' />
+                            <Input
+                                type='text'
+                                id='display'
+                                name='display'
+                                value={name}
+                                onChange={e => setName(e.target.value)}
+                                color='#7d4992'
+                                required
+                            />
                         </Label>
                         <Label htmlFor='display'>
-                            Display Name :
-                            <Input type='text' id='display' name='display' />
+                            Email ID :
+                            <Input
+                                type='email'
+                                id='display'
+                                name='display'
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                color='#7d4992'
+                                required
+                            />
                         </Label>
                         <Label htmlFor='display'>
-                            Display Name :
-                            <Input type='text' id='display' name='display' />
+                            Password :
+                            <Input
+                                type='password'
+                                id='display'
+                                name='display'
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                color='#7d4992'
+                                required
+                            />
                         </Label>
                         <ErrorBox
                             style={{
                                 marginBottom: '20px'
                             }}
                         >
-                            WOWjfsdjkfkdsgfkjdsgdsukOWs
+                            {returnError()}
                         </ErrorBox>
-                        <Buttons.StyledButton width='50%' color='black'>
-                            Ohaio
+                        <Buttons.StyledButton
+                            onClick={register}
+                            type='submit'
+                            width='50%'
+                            color='#7d4992'
+                        >
+                            Register
                         </Buttons.StyledButton>
                     </RegForm>
                 </RegBox>
