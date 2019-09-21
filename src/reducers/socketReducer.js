@@ -22,11 +22,11 @@ export const connect = () => {
 }
 
 // Run after login to authenticate socket
-export const authenticateSocket = uid => {
+export const authenticateSocket = (uid, guest, displayName) => {
     return {
         type: ACTIONS.CONNECT,
         event: 'authenticate',
-        data: { uid }
+        data: { uid, guest, displayName }
     }
 }
 

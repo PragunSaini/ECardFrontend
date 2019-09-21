@@ -24,7 +24,7 @@ firebase.initializeApp(firebaseConfig)
 
 // To login users
 const Login = props => {
-    const { authenticateSocket, notify } = props
+    const { authenticateSocket, notify, user } = props
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -62,6 +62,7 @@ const Login = props => {
                 setError('Please enter a valid email address')
                 break
             default:
+                setError('Server error. Please try again later')
                 break
         }
     }
@@ -75,11 +76,15 @@ const Login = props => {
             .then(() => {
                 if (firebase.auth().currentUser) {
                     // User has logged in so send thumbs up to server
-                    authenticateSocket(firebase.auth().currentUser.uid)
-                    notify('Succesfully Logged In', 3)
-                    setInterval(() => {
-                        props.history.push('/')
-                    }, 3000)
+                    authenticateSocket(firebase.auth().currentUser.uid, false, '')
+                    if (firebase.auth().currentUser) {
+                        notify('Succesfully Logged In', 3)
+                        setInterval(() => {
+                            props.history.push('/')
+                        }, 3000)
+                    } else {
+                        throw new Error()
+                    }
                 }
             })
             .catch(error => {
@@ -91,7 +96,22 @@ const Login = props => {
 
     const guestLogin = e => {
         e.preventDefault()
-        // const
+        try {
+            const uid =
+                Math.random()
+                    .toString(36)
+                    .substring(2, 15) +
+                Math.random()
+                    .toString(36)
+                    .substring(2, 15)
+            authenticateSocket(uid, true, guest)
+            notify('Succesfully Logged In', 3)
+            setInterval(() => {
+                props.history.push('/')
+            }, 3000)
+        } catch (error) {
+            errorhandler(error)
+        }
     }
 
     return (
@@ -124,6 +144,12 @@ const Login = props => {
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
 const mapDispatchToProps = {
     authenticateSocket,
     notify
@@ -131,7 +157,7 @@ const mapDispatchToProps = {
 
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     )(Login)
 )
