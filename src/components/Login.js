@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import * as firebase from 'firebase/app'
-import 'firebase/auth'
-import firebaseConfig from '../firebaseConfig'
 
 import { authenticateSocket } from '../reducers/socketReducer'
 import { notify } from '../reducers/notificationReducer'
@@ -19,12 +16,9 @@ import LoginStyles from '../styledcomponents/LoginStyles'
 
 const { LoginSection, LoginBox, NavBox } = LoginStyles
 
-// Initializing firebase
-firebase.initializeApp(firebaseConfig)
-
 // To login users
 const Login = props => {
-    const { authenticateSocket, notify } = props
+    const { authenticateSocket, notify, firebase } = props
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -77,14 +71,10 @@ const Login = props => {
                 if (firebase.auth().currentUser) {
                     // User has logged in so send thumbs up to server
                     authenticateSocket(firebase.auth().currentUser.uid, false, '')
-                    if (firebase.auth().currentUser) {
-                        notify('Succesfully Logged In', 3)
-                        setInterval(() => {
-                            props.history.push('/')
-                        }, 3000)
-                    } else {
-                        throw new Error()
-                    }
+                    notify('Succesfully Logged In', 3)
+                    setTimeout(() => {
+                        props.history.push('/')
+                    }, 3000)
                 }
             })
             .catch(error => {
@@ -106,7 +96,7 @@ const Login = props => {
                     .substring(2, 15)
             authenticateSocket(uid, true, guest)
             notify('Succesfully Logged In', 3)
-            setInterval(() => {
+            setTimeout(() => {
                 props.history.push('/')
             }, 3000)
         } catch (error) {

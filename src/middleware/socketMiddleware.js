@@ -3,6 +3,7 @@
 // Constants to identify dispatches
 export const ACTIONS = Object.freeze({
     CONNECT: 'SOCKET_CONNECT',
+    DISCONNECT: 'SOCKET_DSCONNECT',
     SUBSCRIBE: 'SOCKET_IO_SUBSCRIBE',
     UNSUBSCRIBE: 'SOCKET_IO_UNSUBSCRIBE',
     EMIT: 'SOCKET_IO_EMIT'
@@ -37,6 +38,12 @@ const socketMiddleware = store => next => action => {
                     user
                 })
             })
+            break
+        }
+
+        // To disconnect with server socket upon logout
+        case ACTIONS.DISCONNECT: {
+            socket.disconnect()
             break
         }
 

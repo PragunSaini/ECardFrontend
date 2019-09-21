@@ -34,10 +34,19 @@ const User = ({ name }) => (
     </StyledLI>
 )
 
+const Logout = ({ onLogout }) => (
+    <StyledLI>
+        <StyledLink to='/' onClick={onLogout}>
+            Logout
+        </StyledLink>
+    </StyledLI>
+)
+
 export default {
     Chat,
     HowToPlay,
     Login,
     Register,
-    User
+    User,
+    Logout
 }

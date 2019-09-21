@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { logoutUser } from '../reducers/userReducer'
+
 import Logo from './Logo'
 import NavLinks from './NavLinks'
 
@@ -10,13 +12,19 @@ import HeaderHeading from '../styledcomponents/HeaderHeading'
 import HeaderMain from '../styledcomponents/HeaderMain'
 import Buttons from '../styledcomponents/Buttons'
 
-const HomeHeader = ({ user }) => {
+const HomeHeader = ({ user, logoutUser }) => {
+    const onLogout = e => {
+        e.preventDefault()
+        logoutUser()
+    }
+
     const renderUserOrLogin = () => {
         if (user) {
             console.log(user.displayName)
             return (
                 <>
                     <NavLinks.User name={user.displayName} />
+                    <NavLinks.Logout onLogout={onLogout} />
                 </>
             )
         }
@@ -68,4 +76,11 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(HomeHeader)
+const mapDispatchToProps = {
+    logoutUser
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(HomeHeader)
