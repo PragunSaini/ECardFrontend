@@ -24,7 +24,7 @@ firebase.initializeApp(firebaseConfig)
 
 // To login users
 const Login = props => {
-    const { authenticateSocket, notify, user } = props
+    const { authenticateSocket, notify } = props
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
