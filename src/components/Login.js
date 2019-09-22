@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import firebase from '../config/firebase'
 
 import { authenticateSocket } from '../reducers/socketReducer'
 import { notify } from '../reducers/notificationReducer'
@@ -18,7 +19,7 @@ const { LoginSection, LoginBox, NavBox } = LoginStyles
 
 // To login users
 const Login = props => {
-    const { authenticateSocket, notify, firebase } = props
+    const { authenticateSocket, notify } = props
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')

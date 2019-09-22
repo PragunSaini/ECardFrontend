@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import * as firebase from 'firebase/app'
-import 'firebase/auth'
-import firebaseConfig from './firebaseConfig'
+import firebase from './config/firebase'
 
 import Login from './components/Login'
 import Register from './components/Register'
@@ -13,9 +11,6 @@ import Notification from './components/Notification'
 import Layout from './styledcomponents/Layout'
 
 import { connect as connectToSocket, authenticateSocket } from './reducers/socketReducer'
-
-// Initializing firebase
-firebase.initializeApp(firebaseConfig)
 
 const App = props => {
     const { connectToSocket, authenticateSocket } = props
@@ -43,7 +38,7 @@ const App = props => {
             <Router>
                 <Switch>
                     <Route exact path='/' render={() => <Home />} />
-                    <Route path='/login' render={() => <Login firebase={firebase} />} />
+                    <Route path='/login' render={() => <Login />} />
                     <Route path='/register' render={() => <Register />} />
                 </Switch>
             </Router>
