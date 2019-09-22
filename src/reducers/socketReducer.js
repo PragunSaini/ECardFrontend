@@ -6,7 +6,7 @@ import { ACTIONS } from '../middleware/socketMiddleware'
 const socketReducer = (state = null, action) => {
     switch (action.type) {
         case 'CONNECT':
-            return io('http://localhost:5000', {
+            return io('https://e-card-game.herokuapp.com', {
                 autoConnect: false
             })
         default:

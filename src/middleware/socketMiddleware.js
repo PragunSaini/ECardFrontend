@@ -20,6 +20,7 @@ const socketMiddleware = store => next => action => {
         // to connect and authenticate
         case ACTIONS.CONNECT: {
             // Attach listeners
+            console.log('\n\nGONNA AUTH\n\n', data, '\n\n')
             socket.on('connect', () => {
                 socket.emit('authentication', data)
                 socket.on('authenticated', () => {
@@ -44,6 +45,9 @@ const socketMiddleware = store => next => action => {
         // To disconnect with server socket upon logout
         case ACTIONS.DISCONNECT: {
             socket.disconnect()
+            // We reconnect the socket after every logout,
+            // To have a new connection for each user
+            store.dispatch({ type: 'CONNECT' })
             break
         }
 

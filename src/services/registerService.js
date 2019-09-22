@@ -1,9 +1,12 @@
 import axios from 'axios'
 
+const url = 'https://e-card-game.herokuapp.com'
+// const url = 'http://localhost:5000'
+
 // Register a user
 const userRegister = async (username, email, password) => {
     try {
-        const userData = await axios.post('http://localhost:5000/register', {
+        const userData = await axios.post(`${url}/register`, {
             username,
             email,
             password
