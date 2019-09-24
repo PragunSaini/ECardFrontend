@@ -1,13 +1,5 @@
 // MIDDLEWARE TO HANDLE SOCKET EVENTS
-
-// Constants to identify dispatches
-export const ACTIONS = Object.freeze({
-    CONNECT: 'SOCKET_CONNECT',
-    DISCONNECT: 'SOCKET_DSCONNECT',
-    SUBSCRIBE: 'SOCKET_IO_SUBSCRIBE',
-    UNSUBSCRIBE: 'SOCKET_IO_UNSUBSCRIBE',
-    EMIT: 'SOCKET_IO_EMIT'
-})
+import { ACTIONS, subscribeGlobalChat, unsubscribeGlobalChat } from './middlewareFunctions'
 
 // The middleware
 const socketMiddleware = store => next => action => {
@@ -25,6 +17,7 @@ const socketMiddleware = store => next => action => {
                 socket.emit('authentication', data)
                 socket.on('authenticated', () => {
                     console.log('Socket authenticated')
+                    subscribeGlobalChat(store)
                 })
                 socket.on('unauthorized', error => {
                     console.log('Socket authenticate error', error)
@@ -48,6 +41,7 @@ const socketMiddleware = store => next => action => {
             // We reconnect the socket after every logout,
             // To have a new connection for each user
             store.dispatch({ type: 'CONNECT' })
+            unsubscribeGlobalChat(store)
             break
         }
 

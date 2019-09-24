@@ -1,12 +1,12 @@
 // To manage the client side socket state and establish connection
 
 import io from 'socket.io-client'
-import { ACTIONS } from '../middleware/socketMiddleware'
+import { ACTIONS } from '../middleware/middlewareFunctions'
 
 const socketReducer = (state = null, action) => {
     switch (action.type) {
         case 'CONNECT':
-            return io('https://e-card-game.herokuapp.com', {
+            return io('http://localhost:5000', {
                 autoConnect: false
             })
         default:

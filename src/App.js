@@ -7,6 +7,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Home from './components/Home'
 import Notification from './components/Notification'
+import Chat from './components/Chat'
 
 import Layout from './styledcomponents/Layout'
 
@@ -40,6 +41,7 @@ const App = props => {
                     <Route exact path='/' render={() => <Home />} />
                     <Route path='/login' render={() => <Login />} />
                     <Route path='/register' render={() => <Register />} />
+                    <Route path='/chat' render={() => <Chat />} />
                 </Switch>
             </Router>
         </Layout.Body>
