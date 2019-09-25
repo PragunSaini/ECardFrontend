@@ -3,8 +3,28 @@ import { connect } from 'react-redux'
 
 import { sendChat } from '../reducers/chatReducer'
 
+import Logo from './Logo'
+import NavLinks from './NavLinks'
 import LoginStyles from '../styledcomponents/LoginStyles'
-import Buttons from '../styledcomponents/Buttons'
+// import Buttons from '../styledcomponents/Buttons'
+import Layout from '../styledcomponents/Layout'
+import NavBar from '../styledcomponents/NavBar'
+import ChatStyles from '../styledcomponents/ChatStyles'
+
+const { BackGround1 } = Layout
+const { LoginSection, NavBox } = LoginStyles
+const {
+    ChatBox,
+    Chats,
+    ChatForm,
+    ChatHeadBlock,
+    ChatHeadBox,
+    ChatHead,
+    ChatDesc,
+    OnlineCount,
+    Messages,
+    Message
+} = ChatStyles
 
 const Chat = ({ chats, sendChat }) => {
     const [chat, setChat] = useState('')
@@ -24,30 +44,59 @@ const Chat = ({ chats, sendChat }) => {
 
     return (
         <>
-            <LoginStyles.Form style={{ color: 'black', background: 'grey' }}>
-                <LoginStyles.Label htmlFor='chat'>
-                    Enter chat here:
-                    <LoginStyles.Input
-                        name='chat'
-                        id='chat'
-                        value={chat}
-                        onChange={e => setChat(e.target.value)}
-                    />
-                </LoginStyles.Label>
-                <Buttons.StyledButton type='submit' onClick={sendChatMessage}>
-                    Send chat
-                </Buttons.StyledButton>
-            </LoginStyles.Form>
-            <div>
-                <ul
+            <BackGround1 />
+            <LoginSection>
+                <NavBox
                     style={{
-                        color: 'black'
+                        height: '80px'
                     }}
                 >
-                    <li>Chats here</li>
-                    {returnChats()}
-                </ul>
-            </div>
+                    <NavBar.NavBar
+                        style={{
+                            height: '80px'
+                        }}
+                    >
+                        <Logo logowidth='30px' />
+                        <NavBar.StyledUL>
+                            <NavLinks.HowToPlay />
+                            <NavLinks.User />
+                        </NavBar.StyledUL>
+                    </NavBar.NavBar>
+                </NavBox>
+
+                <ChatBox>
+                    <Chats>
+                        <ChatHeadBlock>
+                            <ChatHeadBox>
+                                <ChatHead>Global Chat</ChatHead>
+                                <ChatDesc>Chat with players currently online</ChatDesc>
+                            </ChatHeadBox>
+                            <OnlineCount>Currently Online : {0}</OnlineCount>
+                        </ChatHeadBlock>
+                        <Messages>
+                            <Message>Pragun: Asshole</Message>
+                            <Message>Pragun: Asshole</Message>
+                            <Message>Pragun: Asshole</Message>
+                            <Message>Pragun: Asshole</Message>
+                            <Message>Pragun: Asshole</Message>
+                            <Message>Pragun: Asshole</Message>
+                            <Message>Pragun: Asshole</Message>
+                            <Message>Pragun: Asshole</Message>
+                            <Message>Pragun: Asshole</Message>
+                            <Message>
+                                <span style={{ fontWeight: 800 }}>Pragun : </span> Asshole
+                            </Message>
+                            <Message>
+                                Pragun: Asshole you really think you are worhtless you peivce
+                                agijdsigndskngiodsnkammk sdjnfjdsafjdjfn dsjknfjdsnjgn dsjgnjds
+                                ngjdsnjgd sjgljdsnglkdsnglkds nsnjfnjdsnfjndsjfnjsd askfdske
+                                dsighidsgdgnsigdsij
+                            </Message>
+                        </Messages>
+                    </Chats>
+                    <ChatForm />
+                </ChatBox>
+            </LoginSection>
         </>
     )
 }
