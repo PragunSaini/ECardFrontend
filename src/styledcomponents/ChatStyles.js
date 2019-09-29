@@ -68,10 +68,26 @@ const Message = styled.li`
     padding: 5px 0;
 `
 
-const ChatForm = styled.div`
+const ChatForm = styled.form`
     background: rgba(255, 255, 255, 1);
     width: 100%;
     height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+`
+
+const Label = styled.label`
+    width: 90%;
+    height: 100%;
+`
+
+const Input = styled.textarea`
+    width: 100%;
+    height: 100%;
+    resize: none;
+    padding: 5px;
+    font-size: 1.5em;
 `
 
 export default {
@@ -84,5 +100,7 @@ export default {
     OnlineCount,
     Messages,
     Message,
-    ChatForm
+    ChatForm,
+    Label,
+    Input
 }

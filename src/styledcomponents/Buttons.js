@@ -22,6 +22,19 @@ const StyledButton = styled.button`
     }
 `
 
+const SendButton = styled.button`
+    width: 10%;
+    height: 100%;
+    background-color: #069bb8;
+    cursor: pointer;
+
+    :active {
+        box-shadow: 10px 10px 14px 1px inset rgba(00, 00, 00, 0.2),
+            -10px -10px 14px 1px inset rgba(00, 00, 00, 0.2);
+    }
+`
+
 export default {
-    StyledButton
+    StyledButton,
+    SendButton
 }

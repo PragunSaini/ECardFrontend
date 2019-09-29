@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import firebase from './config/firebase'
@@ -14,17 +14,21 @@ import Layout from './styledcomponents/Layout'
 import { connect as connectToSocket, authenticateSocket } from './reducers/socketReducer'
 
 const App = props => {
+    const [loading, setLoading] = useState(true)
     const { connectToSocket, authenticateSocket } = props
 
     const checkToken = async () => {
         const token = window.localStorage.getItem('loggedEcardUser')
         if (token) {
             await firebase.auth().signInWithCustomToken(token)
+            console.log(firebase.auth().currentUser)
             authenticateSocket(firebase.auth().currentUser.uid, false, '')
         }
+        setLoading(false)
     }
 
     useEffect(() => {
+        setLoading(true)
         connectToSocket()
         checkToken()
     }, [])
@@ -36,14 +40,19 @@ const App = props => {
     return (
         <Layout.Body>
             <Notification />
-            <Router>
-                <Switch>
-                    <Route exact path='/' render={() => <Home />} />
-                    <Route path='/login' render={() => <Login />} />
-                    <Route path='/register' render={() => <Register />} />
-                    <Route path='/chat' render={() => <Chat />} />
-                </Switch>
-            </Router>
+
+            {loading ? (
+                <p style={{ color: 'black' }}>Loading</p>
+            ) : (
+                <Router>
+                    <Switch>
+                        <Route exact path='/' render={() => <Home />} />
+                        <Route path='/login' render={() => <Login />} />
+                        <Route path='/register' render={() => <Register />} />
+                        <Route path='/chat' render={() => <Chat />} />
+                    </Switch>
+                </Router>
+            )}
         </Layout.Body>
     )
 }

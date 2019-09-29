@@ -10,9 +10,11 @@ import LoginStyles from '../styledcomponents/LoginStyles'
 import Layout from '../styledcomponents/Layout'
 import NavBar from '../styledcomponents/NavBar'
 import ChatStyles from '../styledcomponents/ChatStyles'
+import Buttons from '../styledcomponents/Buttons'
 
 const { BackGround1 } = Layout
 const { LoginSection, NavBox } = LoginStyles
+const { SendButton } = Buttons
 const {
     ChatBox,
     Chats,
@@ -23,27 +25,33 @@ const {
     ChatDesc,
     OnlineCount,
     Messages,
-    Message
+    Message,
+    Label,
+    Input
 } = ChatStyles
 
-const Chat = ({ chats, sendChat }) => {
+const Chat = ({ user, chats, sendChat }) => {
     const [chat, setChat] = useState('')
 
     const returnChats = () => {
-        return chats.map(chat => <li key={new Date().getTime()}>{chat}</li>)
+        return chats.map(chat => (
+            <Message>
+                <span style={{ fontWeight: 800 }}>{chat.displayName} : </span> {chat.msg}
+            </Message>
+        ))
     }
 
     const sendChatMessage = e => {
         e.preventDefault()
         const msg = chat.trim()
         if (msg.length > 0) {
-            sendChat(msg)
+            sendChat({ msg, displayName: user.displayName })
             setChat('')
         }
     }
 
     return (
-        <>
+        <div>
             <BackGround1 />
             <LoginSection>
                 <NavBox
@@ -73,37 +81,45 @@ const Chat = ({ chats, sendChat }) => {
                             </ChatHeadBox>
                             <OnlineCount>Currently Online : {0}</OnlineCount>
                         </ChatHeadBlock>
-                        <Messages>
-                            <Message>Pragun: Asshole</Message>
-                            <Message>Pragun: Asshole</Message>
-                            <Message>Pragun: Asshole</Message>
-                            <Message>Pragun: Asshole</Message>
-                            <Message>Pragun: Asshole</Message>
-                            <Message>Pragun: Asshole</Message>
-                            <Message>Pragun: Asshole</Message>
-                            <Message>Pragun: Asshole</Message>
-                            <Message>Pragun: Asshole</Message>
-                            <Message>
-                                <span style={{ fontWeight: 800 }}>Pragun : </span> Asshole
-                            </Message>
-                            <Message>
-                                Pragun: Asshole you really think you are worhtless you peivce
-                                agijdsigndskngiodsnkammk sdjnfjdsafjdjfn dsjknfjdsnjgn dsjgnjds
-                                ngjdsnjgd sjgljdsnglkdsnglkds nsnjfnjdsnfjndsjfnjsd askfdske
-                                dsighidsgdgnsigdsij
-                            </Message>
-                        </Messages>
+                        <Messages>{returnChats()}</Messages>
                     </Chats>
-                    <ChatForm />
+                    <ChatForm>
+                        <Label htmlFor='chat'>
+                            <Input
+                                type='text'
+                                id='chat'
+                                name='chat'
+                                value={chat}
+                                onChange={e => setChat(e.target.value)}
+                                placeholder='Please type your message here'
+                            />
+                        </Label>
+                        <SendButton onClick={sendChatMessage} type='submit'>
+                            <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                width='50'
+                                height='50'
+                                x='0'
+                                y='0'
+                                enableBackground='new 0 0 459 459'
+                                version='1.1'
+                                viewBox='0 0 459 459'
+                                xmlSpace='preserve'
+                            >
+                                <path d='M459 216.75L280.5 38.25v102c-178.5 25.5-255 153-280.5 280.5C63.75 331.5 153 290.7 280.5 290.7v104.55L459 216.75z' />
+                            </svg>
+                        </SendButton>
+                    </ChatForm>
                 </ChatBox>
             </LoginSection>
-        </>
+        </div>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        chats: state.chat
+        chats: state.chat,
+        user: state.user
     }
 }
 

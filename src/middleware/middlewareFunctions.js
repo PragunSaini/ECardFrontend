@@ -11,7 +11,7 @@ export const ACTIONS = Object.freeze({
 export const subscribeGlobalChat = store => {
     store.dispatch({
         type: ACTIONS.SUBSCRIBE,
-        event: 'global chat',
+        event: 'global chat broadcast',
         handle: msg => {
             store.dispatch({
                 type: 'ADD_GLOBAL_CHAT',
@@ -25,7 +25,7 @@ export const subscribeGlobalChat = store => {
 export const unsubscribeGlobalChat = store => {
     store.dispatch({
         type: ACTIONS.UNSUBSCRIBE,
-        event: 'global chat'
+        event: 'global chat broadcast'
     })
     store.dispatch({
         type: 'CLEAR_CHAT_HISTORY'

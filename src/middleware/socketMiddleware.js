@@ -37,11 +37,11 @@ const socketMiddleware = store => next => action => {
 
         // To disconnect with server socket upon logout
         case ACTIONS.DISCONNECT: {
+            unsubscribeGlobalChat(store)
             socket.disconnect()
             // We reconnect the socket after every logout,
             // To have a new connection for each user
             store.dispatch({ type: 'CONNECT' })
-            unsubscribeGlobalChat(store)
             break
         }
 
