@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-const url = 'https://e-card-game.herokuapp.com'
-// const url = 'http://localhost:5000'
+const url = process.env.REACT_APP_BACKEND
 
 // Register a user
 const userRegister = async (username, email, password) => {

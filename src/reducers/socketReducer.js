@@ -6,7 +6,7 @@ import { ACTIONS } from '../middleware/middlewareFunctions'
 const socketReducer = (state = null, action) => {
     switch (action.type) {
         case 'CONNECT':
-            return io('http://localhost:5000', {
+            return io(process.env.REACT_APP_BACKEND, {
                 autoConnect: false
             })
         default:
