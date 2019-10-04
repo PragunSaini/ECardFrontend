@@ -66,8 +66,7 @@ const Chat = ({ user, chats, sendChat }) => {
                     >
                         <Logo logowidth='30px' />
                         <NavBar.StyledUL>
-                            <NavLinks.HowToPlay />
-                            <NavLinks.User />
+                            <NavLinks.User name={user.displayName} />
                         </NavBar.StyledUL>
                     </NavBar.NavBar>
                 </NavBox>
