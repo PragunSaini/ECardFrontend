@@ -21,6 +21,9 @@ const socketMiddleware = store => next => action => {
                 })
                 socket.on('unauthorized', error => {
                     console.log('Socket authenticate error', error)
+                    store.dispatch({
+                        type: 'FINISHED_LOADING'
+                    })
                 })
             })
             // Try to connect
@@ -30,6 +33,9 @@ const socketMiddleware = store => next => action => {
                 store.dispatch({
                     type: 'SET_USER_INFO',
                     user
+                })
+                store.dispatch({
+                    type: 'FINISHED_LOADING'
                 })
             })
             break

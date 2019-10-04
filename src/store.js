@@ -7,6 +7,7 @@ import socketMiddleware from './middleware/socketMiddleware'
 import eventHandlerReducer from './reducers/eventHandlerReducer'
 import socketReducer from './reducers/socketReducer'
 import userReducer from './reducers/userReducer'
+import loadingReducer from './reducers/loadingReducer'
 import notificationReducer from './reducers/notificationReducer'
 import chatReducer from './reducers/chatReducer'
 
@@ -16,7 +17,8 @@ const reducer = combineReducers({
     socket: socketReducer,
     user: userReducer,
     notification: notificationReducer,
-    chat: chatReducer
+    chat: chatReducer,
+    loading: loadingReducer
 })
 
 // Create the store and apply relevant middlewares

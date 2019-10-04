@@ -12,10 +12,10 @@ import Chat from './components/Chat'
 import Layout from './styledcomponents/Layout'
 
 import { connect as connectToSocket, authenticateSocket } from './reducers/socketReducer'
+import { startLoading, finishLoading } from './reducers/loadingReducer'
 
 const App = props => {
-    const [loading, setLoading] = useState(true)
-    const { connectToSocket, authenticateSocket } = props
+    const { loading, connectToSocket, authenticateSocket, startLoading, finishLoading } = props
 
     const checkToken = async () => {
         const token = window.localStorage.getItem('loggedEcardUser')
@@ -23,12 +23,13 @@ const App = props => {
             await firebase.auth().signInWithCustomToken(token)
             console.log(firebase.auth().currentUser)
             authenticateSocket(firebase.auth().currentUser.uid, false, '')
+        } else {
+            finishLoading()
         }
-        setLoading(false)
     }
 
     useEffect(() => {
-        setLoading(true)
+        startLoading()
         connectToSocket()
         checkToken()
     }, [])
@@ -57,12 +58,20 @@ const App = props => {
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        loading: state.loading
+    }
+}
+
 const mapDispatchToProps = {
     connectToSocket,
-    authenticateSocket
+    authenticateSocket,
+    startLoading,
+    finishLoading
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(App)
