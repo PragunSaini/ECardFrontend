@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
@@ -12,8 +12,11 @@ import Layout from '../styledcomponents/Layout'
 import HeaderHeading from '../styledcomponents/HeaderHeading'
 import HeaderMain from '../styledcomponents/HeaderMain'
 import Buttons from '../styledcomponents/Buttons'
+import LoginStyles from '../styledcomponents/LoginStyles'
 
 const HomeHeader = ({ history, user, logoutUser }) => {
+    const [gameid, setGameid] = useState('')
+
     const onLogout = e => {
         e.preventDefault()
         logoutUser()
@@ -37,6 +40,22 @@ const HomeHeader = ({ history, user, logoutUser }) => {
         )
     }
 
+    const joinGame = e => {
+        e.preventDefault()
+        if (!user) {
+            history.push('/login')
+        } else {
+        }
+    }
+
+    const startGame = e => {
+        e.preventDefault()
+        if (!user) {
+            history.push('/login')
+        } else {
+        }
+    }
+
     return (
         <Layout.Header>
             <NavBar.NavBar>
@@ -57,9 +76,6 @@ const HomeHeader = ({ history, user, logoutUser }) => {
                         players
                     </HeaderMain.SubHeader>
                     <form type='get'>
-                        <Buttons.StyledButton color='#845ec2' width='180px'>
-                            Start a Game
-                        </Buttons.StyledButton>
                         <Buttons.StyledButton
                             color='#00c9b7'
                             width='180px'
@@ -68,6 +84,37 @@ const HomeHeader = ({ history, user, logoutUser }) => {
                             }}
                         >
                             Join Chat
+                        </Buttons.StyledButton>
+
+                        <Buttons.StyledButton color='#845ec2' width='180px' onClick={startGame}>
+                            Start a Game
+                        </Buttons.StyledButton>
+
+                        <LoginStyles.Label
+                            htmlFor='joingame'
+                            style={{
+                                alignItems: 'center',
+                                width: '50%'
+                            }}
+                        >
+                            Join a game (enter the game id here)
+                            <LoginStyles.Input
+                                type='text'
+                                name='joingame'
+                                id='joingame'
+                                value={gameid}
+                                onChange={e => {
+                                    setGameid(e.target.value)
+                                }}
+                                style={{
+                                    textAlign: 'center',
+                                    fontSize: '1.2em'
+                                }}
+                            />
+                        </LoginStyles.Label>
+
+                        <Buttons.StyledButton color='#4164a8' width='180px' onClick={joinGame}>
+                            Join Game
                         </Buttons.StyledButton>
                     </form>
                 </HeaderMain.MainBox>
