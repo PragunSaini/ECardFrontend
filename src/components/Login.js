@@ -5,6 +5,7 @@ import firebase from '../config/firebase'
 
 import { authenticateSocket } from '../reducers/socketReducer'
 import { notify } from '../reducers/notificationReducer'
+import { startLoading } from '../reducers/loadingReducer'
 
 import Logo from './Logo'
 import NavLinks from './NavLinks'
@@ -19,7 +20,7 @@ const { LoginSection, LoginBox, NavBox } = LoginStyles
 
 // To login users
 const Login = props => {
-    const { authenticateSocket, notify } = props
+    const { authenticateSocket, notify, startLoading } = props
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -73,9 +74,10 @@ const Login = props => {
                     // User has logged in so send thumbs up to server
                     authenticateSocket(firebase.auth().currentUser.uid, false, '')
                     notify('Succesfully Logged In', 3)
+                    startLoading()
                     setTimeout(() => {
                         props.history.push('/')
-                    }, 3000)
+                    }, 1000)
                 }
             })
             .catch(error => {
@@ -143,7 +145,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     authenticateSocket,
-    notify
+    notify,
+    startLoading
 }
 
 export default withRouter(
