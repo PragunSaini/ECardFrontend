@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import { logoutUser } from '../reducers/userReducer'
 
@@ -12,7 +13,7 @@ import HeaderHeading from '../styledcomponents/HeaderHeading'
 import HeaderMain from '../styledcomponents/HeaderMain'
 import Buttons from '../styledcomponents/Buttons'
 
-const HomeHeader = ({ user, logoutUser }) => {
+const HomeHeader = ({ history, user, logoutUser }) => {
     const onLogout = e => {
         e.preventDefault()
         logoutUser()
@@ -42,7 +43,6 @@ const HomeHeader = ({ user, logoutUser }) => {
                 <Logo logowidth='100%' />
                 <NavBar.SubNav>
                     <NavBar.StyledUL>
-                        <NavLinks.HowToPlay />
                         <NavLinks.Chat />
                         {renderUserOrLogin()}
                     </NavBar.StyledUL>
@@ -60,7 +60,13 @@ const HomeHeader = ({ user, logoutUser }) => {
                         <Buttons.StyledButton color='#845ec2' width='180px'>
                             Start a Game
                         </Buttons.StyledButton>
-                        <Buttons.StyledButton color='#00c9b7' width='180px'>
+                        <Buttons.StyledButton
+                            color='#00c9b7'
+                            width='180px'
+                            onClick={() => {
+                                history.push('/chat')
+                            }}
+                        >
                             Join Chat
                         </Buttons.StyledButton>
                     </form>
@@ -80,7 +86,9 @@ const mapDispatchToProps = {
     logoutUser
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(HomeHeader)
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(HomeHeader)
+)

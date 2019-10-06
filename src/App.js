@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import firebase from './config/firebase'
 
 import Login from './components/Login'
@@ -15,7 +15,14 @@ import { connect as connectToSocket, authenticateSocket } from './reducers/socke
 import { startLoading, finishLoading } from './reducers/loadingReducer'
 
 const App = props => {
-    const { loading, connectToSocket, authenticateSocket, startLoading, finishLoading } = props
+    const {
+        user,
+        loading,
+        connectToSocket,
+        authenticateSocket,
+        startLoading,
+        finishLoading
+    } = props
 
     const checkToken = async () => {
         const token = window.localStorage.getItem('loggedEcardUser')
@@ -47,10 +54,29 @@ const App = props => {
             ) : (
                 <Router>
                     <Switch>
-                        <Route exact path='/' render={() => <Home />} />
-                        <Route path='/login' render={() => <Login />} />
-                        <Route path='/register' render={() => <Register />} />
-                        <Route path='/chat' render={() => <Chat />} />
+                        <Route
+                            path='/login'
+                            render={() => (user ? <Redirect to='/' /> : <Login />)}
+                        />
+                        <Route
+                            path='/register'
+                            render={() => (user ? <Redirect to='/' /> : <Register />)}
+                        />
+                        <Route
+                            path='/chat'
+                            render={() => (user ? <Chat /> : <Redirect to='/login' />)}
+                        />
+                        <Route
+                            path='/game/:id'
+                            render={() =>
+                                user ? (
+                                    <p style={{ color: 'black' }}>A GAME HERE</p>
+                                ) : (
+                                    <Redirect to='/login' />
+                                )
+                            }
+                        />
+                        <Route path='/' render={() => <Home />} />
                     </Switch>
                 </Router>
             )}
@@ -60,7 +86,8 @@ const App = props => {
 
 const mapStateToProps = state => {
     return {
-        loading: state.loading
+        loading: state.loading,
+        user: state.user
     }
 }
 
