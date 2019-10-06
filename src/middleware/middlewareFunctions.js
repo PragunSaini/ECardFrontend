@@ -45,3 +45,85 @@ export const updateUserCount = store => {
         }
     })
 }
+
+// Subscribe game room created event
+export const gameRoomCreated = store => {
+    store.dispatch({
+        type: ACTIONS.SUBSCRIBE,
+        event: 'game room created',
+        handle: room => {
+            store.dispatch({
+                type: 'GAME_ROOM_CREATED',
+                room
+            })
+        }
+    })
+}
+
+// subscribe to game room joined
+export const gameRoomJoined = store => {
+    store.dispatch({
+        type: ACTIONS.SUBSCRIBE,
+        event: 'game room joined',
+        handle: room => {
+            store.dispatch({
+                type: 'GAME_ROOM_JOINED',
+                room
+            })
+        }
+    })
+}
+
+// Subscribe to room joining errors
+export const roomJoinError = store => {
+    store.dispatch({
+        type: ACTIONS.SUBSCRIBE,
+        event: 'no such room',
+        handle: () => {
+            store.dispatch({
+                type: 'NOTIFY',
+                message: 'No room with this ID exists'
+            })
+
+            setTimeout(() => {
+                store.dispatch({
+                    type: 'TIMEOUT'
+                })
+            }, 2 * 500)
+        }
+    })
+
+    store.dispatch({
+        type: ACTIONS.SUBSCRIBE,
+        event: 'room full',
+        handle: () => {
+            store.dispatch({
+                type: 'NOTIFY',
+                message: 'The room you are trying to join is already full'
+            })
+
+            setTimeout(() => {
+                store.dispatch({
+                    type: 'TIMEOUT'
+                })
+            }, 2 * 500)
+        }
+    })
+
+    store.dispatch({
+        type: ACTIONS.SUBSCRIBE,
+        event: 'cannot join own room',
+        handle: () => {
+            store.dispatch({
+                type: 'NOTIFY',
+                message: 'You have already joined your own room'
+            })
+
+            setTimeout(() => {
+                store.dispatch({
+                    type: 'TIMEOUT'
+                })
+            }, 2 * 500)
+        }
+    })
+}

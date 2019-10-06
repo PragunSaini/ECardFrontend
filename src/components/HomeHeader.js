@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import { logoutUser } from '../reducers/userReducer'
+import { createNewGameRoom, joinGameRoom } from '../reducers/gameReducer'
 
 import Logo from './Logo'
 import NavLinks from './NavLinks'
@@ -14,7 +15,7 @@ import HeaderMain from '../styledcomponents/HeaderMain'
 import Buttons from '../styledcomponents/Buttons'
 import LoginStyles from '../styledcomponents/LoginStyles'
 
-const HomeHeader = ({ history, user, logoutUser }) => {
+const HomeHeader = ({ history, user, logoutUser, createNewGameRoom, joinGameRoom }) => {
     const [gameid, setGameid] = useState('')
 
     const onLogout = e => {
@@ -45,6 +46,7 @@ const HomeHeader = ({ history, user, logoutUser }) => {
         if (!user) {
             history.push('/login')
         } else {
+            joinGameRoom(parseInt(gameid, 10))
         }
     }
 
@@ -53,6 +55,7 @@ const HomeHeader = ({ history, user, logoutUser }) => {
         if (!user) {
             history.push('/login')
         } else {
+            createNewGameRoom()
         }
     }
 
@@ -130,7 +133,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    logoutUser
+    logoutUser,
+    createNewGameRoom,
+    joinGameRoom
 }
 
 export default withRouter(

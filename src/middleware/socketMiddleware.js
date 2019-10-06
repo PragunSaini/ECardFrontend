@@ -3,7 +3,10 @@ import {
     ACTIONS,
     subscribeGlobalChat,
     unsubscribeGlobalChat,
-    updateUserCount
+    updateUserCount,
+    gameRoomCreated,
+    roomJoinError,
+    gameRoomJoined
 } from './middlewareFunctions'
 
 // The middleware
@@ -24,6 +27,9 @@ const socketMiddleware = store => next => action => {
                     console.log('Socket authenticated')
                     subscribeGlobalChat(store)
                     updateUserCount(store)
+                    gameRoomCreated(store)
+                    roomJoinError(store)
+                    gameRoomJoined(store)
                 })
                 socket.on('unauthorized', error => {
                     console.log('Socket authenticate error', error)
