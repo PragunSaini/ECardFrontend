@@ -31,3 +31,17 @@ export const unsubscribeGlobalChat = store => {
         type: 'CLEAR_CHAT_HISTORY'
     })
 }
+
+// Update connected count when someone logs in or out
+export const updateUserCount = store => {
+    store.dispatch({
+        type: ACTIONS.SUBSCRIBE,
+        event: 'connected count',
+        handle: count => {
+            store.dispatch({
+                type: 'UPDATE_USER_COUNT',
+                count
+            })
+        }
+    })
+}

@@ -30,7 +30,7 @@ const {
     Input
 } = ChatStyles
 
-const Chat = ({ user, chats, sendChat }) => {
+const Chat = ({ user, chats, count, sendChat }) => {
     const [chat, setChat] = useState('')
 
     const returnChats = () => {
@@ -78,7 +78,7 @@ const Chat = ({ user, chats, sendChat }) => {
                                 <ChatHead>Global Chat</ChatHead>
                                 <ChatDesc>Chat with players currently online</ChatDesc>
                             </ChatHeadBox>
-                            <OnlineCount>Currently Online : {0}</OnlineCount>
+                            <OnlineCount>Currently Online : {count}</OnlineCount>
                         </ChatHeadBlock>
                         <Messages>{returnChats()}</Messages>
                     </Chats>
@@ -118,7 +118,8 @@ const Chat = ({ user, chats, sendChat }) => {
 const mapStateToProps = state => {
     return {
         chats: state.chat,
-        user: state.user
+        user: state.user,
+        count: state.count
     }
 }
 

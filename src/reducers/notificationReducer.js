@@ -21,7 +21,7 @@ export const notify = (msg, timeout) => {
             dispatch({
                 type: 'TIMEOUT'
             })
-        }, timeout * 1000)
+        }, timeout * 500)
     }
 }
 

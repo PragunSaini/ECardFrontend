@@ -1,5 +1,10 @@
 // MIDDLEWARE TO HANDLE SOCKET EVENTS
-import { ACTIONS, subscribeGlobalChat, unsubscribeGlobalChat } from './middlewareFunctions'
+import {
+    ACTIONS,
+    subscribeGlobalChat,
+    unsubscribeGlobalChat,
+    updateUserCount
+} from './middlewareFunctions'
 
 // The middleware
 const socketMiddleware = store => next => action => {
@@ -18,6 +23,7 @@ const socketMiddleware = store => next => action => {
                 socket.on('authenticated', () => {
                     console.log('Socket authenticated')
                     subscribeGlobalChat(store)
+                    updateUserCount(store)
                 })
                 socket.on('unauthorized', error => {
                     console.log('Socket authenticate error', error)
@@ -31,11 +37,11 @@ const socketMiddleware = store => next => action => {
             // Set user information received from server
             socket.on('user information', user => {
                 store.dispatch({
-                    type: 'SET_USER_INFO',
-                    user
+                    type: 'FINISHED_LOADING'
                 })
                 store.dispatch({
-                    type: 'FINISHED_LOADING'
+                    type: 'SET_USER_INFO',
+                    user
                 })
             })
             break

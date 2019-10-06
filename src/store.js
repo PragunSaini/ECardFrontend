@@ -10,6 +10,7 @@ import userReducer from './reducers/userReducer'
 import loadingReducer from './reducers/loadingReducer'
 import notificationReducer from './reducers/notificationReducer'
 import chatReducer from './reducers/chatReducer'
+import countReducer from './reducers/countReducer'
 
 // Create a combined reducer
 const reducer = combineReducers({
@@ -18,7 +19,8 @@ const reducer = combineReducers({
     user: userReducer,
     notification: notificationReducer,
     chat: chatReducer,
-    loading: loadingReducer
+    loading: loadingReducer,
+    count: countReducer
 })
 
 // Create the store and apply relevant middlewares

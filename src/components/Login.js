@@ -73,7 +73,7 @@ const Login = props => {
                 if (firebase.auth().currentUser) {
                     // User has logged in so send thumbs up to server
                     authenticateSocket(firebase.auth().currentUser.uid, false, '')
-                    notify('Succesfully Logged In', 3)
+                    notify('Succesfully Logged In', 2)
                     startLoading()
                     setTimeout(() => {
                         props.history.push('/')
