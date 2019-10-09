@@ -6,7 +6,8 @@ import {
     updateUserCount,
     gameRoomCreated,
     roomJoinError,
-    gameRoomJoined
+    gameRoomJoined,
+    gameInitAndStart
 } from './middlewareFunctions'
 
 // The middleware
@@ -30,6 +31,7 @@ const socketMiddleware = store => next => action => {
                     gameRoomCreated(store)
                     roomJoinError(store)
                     gameRoomJoined(store)
+                    gameInitAndStart(store)
                 })
                 socket.on('unauthorized', error => {
                     console.log('Socket authenticate error', error)

@@ -6,6 +6,8 @@ const gameReducer = (state = null, action) => {
             return action.room
         case 'GAME_ROOM_JOINED':
             return action.room
+        case 'GAME_INIT':
+            return action.room
         default:
             return state
     }
@@ -18,11 +20,19 @@ export const createNewGameRoom = () => {
     }
 }
 
-export const joinGameRoom = id => {
+export const joinGameRoom = roomid => {
     return {
         type: ACTIONS.EMIT,
         event: 'join game room',
-        data: id
+        data: roomid
+    }
+}
+
+export const ready = roomid => {
+    return {
+        type: ACTIONS.EMIT,
+        event: 'ready to play',
+        data: roomid
     }
 }
 

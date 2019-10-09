@@ -127,3 +127,16 @@ export const roomJoinError = store => {
         }
     })
 }
+
+export const gameInitAndStart = store => {
+    store.dispatch({
+        type: ACTIONS.SUBSCRIBE,
+        event: 'game init and start',
+        handle: room => {
+            store.dispatch({
+                type: 'GAME_INIT',
+                room
+            })
+        }
+    })
+}

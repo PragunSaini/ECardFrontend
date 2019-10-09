@@ -26,6 +26,7 @@ module.exports = {
             }
         ],
         'react/prop-types': 0,
-        'no-shadow': 0
+        'no-shadow': 0,
+        eqeqeq: 'off'
     }
 }

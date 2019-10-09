@@ -8,6 +8,7 @@ import Register from './components/Register'
 import Home from './components/Home'
 import Notification from './components/Notification'
 import Chat from './components/Chat'
+import Game from './components/Game'
 
 import Layout from './styledcomponents/Layout'
 
@@ -76,13 +77,18 @@ const App = props => {
                     />
                     <Route
                         path='/game/:id'
-                        render={({ match }) =>
-                            user ? (
-                                <p style={{ color: 'black' }}>{match.params.id}</p>
-                            ) : (
-                                <Redirect to='/login' />
-                            )
-                        }
+                        render={({ match }) => {
+                            if (user) {
+                                if (!game) {
+                                    return <Redirect to='/' />
+                                }
+                                if (game.roomid != match.params.id) {
+                                    return <Redirect to='/' />
+                                }
+                                return <Game id={match.params.id} />
+                            }
+                            return <Redirect to='/login' />
+                        }}
                     />
                     <Route path='/' render={() => <Home />} />
                 </Switch>
