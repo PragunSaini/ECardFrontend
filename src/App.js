@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import firebase from './config/firebase'
 
 import Login from './components/Login'
@@ -16,8 +16,10 @@ import { startLoading, finishLoading } from './reducers/loadingReducer'
 
 const App = props => {
     const {
+        history,
         user,
         loading,
+        game,
         connectToSocket,
         authenticateSocket,
         startLoading,
@@ -35,11 +37,21 @@ const App = props => {
         }
     }
 
+    const checkinGame = () => {
+        if (game) {
+            history.push(`/game/${game.roomid}`)
+        }
+    }
+
     useEffect(() => {
         startLoading()
         connectToSocket()
         checkToken()
     }, [])
+
+    useEffect(() => {
+        checkinGame()
+    }, [game])
 
     useEffect(() => {
         console.log('JUST RENDERED BABY')
@@ -52,33 +64,28 @@ const App = props => {
             {loading ? (
                 <p style={{ color: 'black' }}>Loading</p>
             ) : (
-                <Router>
-                    <Switch>
-                        <Route
-                            path='/login'
-                            render={() => (user ? <Redirect to='/' /> : <Login />)}
-                        />
-                        <Route
-                            path='/register'
-                            render={() => (user ? <Redirect to='/' /> : <Register />)}
-                        />
-                        <Route
-                            path='/chat'
-                            render={() => (user ? <Chat /> : <Redirect to='/login' />)}
-                        />
-                        <Route
-                            path='/game/:id'
-                            render={() =>
-                                user ? (
-                                    <p style={{ color: 'black' }}>A GAME HERE</p>
-                                ) : (
-                                    <Redirect to='/login' />
-                                )
-                            }
-                        />
-                        <Route path='/' render={() => <Home />} />
-                    </Switch>
-                </Router>
+                <Switch>
+                    <Route path='/login' render={() => (user ? <Redirect to='/' /> : <Login />)} />
+                    <Route
+                        path='/register'
+                        render={() => (user ? <Redirect to='/' /> : <Register />)}
+                    />
+                    <Route
+                        path='/chat'
+                        render={() => (user ? <Chat /> : <Redirect to='/login' />)}
+                    />
+                    <Route
+                        path='/game/:id'
+                        render={({ match }) =>
+                            user ? (
+                                <p style={{ color: 'black' }}>{match.params.id}</p>
+                            ) : (
+                                <Redirect to='/login' />
+                            )
+                        }
+                    />
+                    <Route path='/' render={() => <Home />} />
+                </Switch>
             )}
         </Layout.Body>
     )
@@ -87,7 +94,8 @@ const App = props => {
 const mapStateToProps = state => {
     return {
         loading: state.loading,
-        user: state.user
+        user: state.user,
+        game: state.game
     }
 }
 
@@ -98,7 +106,9 @@ const mapDispatchToProps = {
     finishLoading
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App)
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(App)
+)

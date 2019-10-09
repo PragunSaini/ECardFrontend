@@ -2,6 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 import './index.css'
 import store from './store'
@@ -11,7 +12,9 @@ import App from './App'
 const render = () => {
     ReactDOM.render(
         <Provider store={store}>
-            <App store={store} />
+            <Router>
+                <App store={store} />
+            </Router>
         </Provider>,
         document.getElementById('root')
     )

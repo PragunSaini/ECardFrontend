@@ -1,5 +1,5 @@
 // Create a redux store
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import socketMiddleware from './middleware/socketMiddleware'
 
@@ -25,8 +25,10 @@ const reducer = combineReducers({
     game: gameReducer
 })
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
 // Create the store and apply relevant middlewares
-const store = createStore(reducer, applyMiddleware(socketMiddleware, thunk))
+const store = createStore(reducer, composeEnhancers(applyMiddleware(socketMiddleware, thunk)))
 store.subscribe(() => console.log(store.getState()))
 
 export default store
