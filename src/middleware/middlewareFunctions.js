@@ -135,7 +135,36 @@ export const gameInitAndStart = store => {
         handle: room => {
             store.dispatch({
                 type: 'GAME_INIT',
-                room
+                room,
+                uid: store.getState().user.uid
+            })
+        }
+    })
+}
+
+export const listenForNextTurn = store => {
+    store.dispatch({
+        type: ACTIONS.SUBSCRIBE,
+        event: 'next turn',
+        handle: room => {
+            store.dispatch({
+                type: 'GAME_NEXT_TURN',
+                room,
+                uid: store.getState().user.uid
+            })
+        }
+    })
+}
+
+export const listenForGameOver = store => {
+    store.dispatch({
+        type: ACTIONS.SUBSCRIBE,
+        event: 'game over',
+        handle: room => {
+            store.dispatch({
+                type: 'GAME_OVER',
+                room,
+                uid: store.getState().user.uid
             })
         }
     })
