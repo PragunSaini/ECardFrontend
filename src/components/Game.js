@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 import { ready, cardPlayed } from '../reducers/gameReducer'
 
+import { Emperor, Citizen, Slave } from './Cards'
+
+import Layout from '../styledcomponents/Layout'
+import GameStyles from '../styledcomponents/Game'
+import Buttons from '../styledcomponents/Buttons'
+const { BackGround1, BackGround2 } = Layout
+const { ReadyBox, ButtonDiv, ReadyMessage } = GameStyles
+const { StyledButton } = Buttons
+
 const Game = ({ game, user, ready, cardPlayed }) => {
+    const [buttoncol, setbuttoncol] = useState('rgba(255, 0, 0, 0.7)')
     const connected = () => {
         let count = 0
         if (game.player1SocketID) {
@@ -22,6 +32,13 @@ const Game = ({ game, user, ready, cardPlayed }) => {
     const playCard = card => {
         console.log(card)
         cardPlayed(card, game.roomid)
+    }
+
+    const colorChanger = () => {
+        if (buttoncol == 'rgba(255, 0, 0, 0.7)') {
+            setbuttoncol('rgba(0, 255, 100, 0.7)')
+            readyToPlay()
+        }
     }
 
     const displayReadyOrNot = () => {
@@ -48,9 +65,20 @@ const Game = ({ game, user, ready, cardPlayed }) => {
             )
         }
         return (
-            <button type='button' onClick={readyToPlay}>
-                Ready
-            </button>
+            <ReadyBox>
+                <ButtonDiv>
+                    <ReadyMessage>Waiting for both players to be ready ...</ReadyMessage>
+                    <StyledButton
+                        color={buttoncol}
+                        width='100%'
+                        onClick={() => {
+                            colorChanger()
+                        }}
+                    >
+                        Ready !
+                    </StyledButton>
+                </ButtonDiv>
+            </ReadyBox>
         )
     }
 
@@ -66,12 +94,8 @@ const Game = ({ game, user, ready, cardPlayed }) => {
     }
 
     return (
-        <div
-            style={{
-                color: 'black'
-            }}
-        >
-            <div>Connected - {connected()}</div>
+        <div>
+            <BackGround2 />
             {displayReadyOrNot()}
         </div>
     )
