@@ -10,6 +10,7 @@ import userReducer from './reducers/userReducer'
 import loadingReducer from './reducers/loadingReducer'
 import notificationReducer from './reducers/notificationReducer'
 import chatReducer from './reducers/chatReducer'
+import roomchatReducer from './reducers/roomchatReducer'
 import countReducer from './reducers/countReducer'
 import gameReducer from './reducers/gameReducer'
 
@@ -20,6 +21,7 @@ const reducer = combineReducers({
     user: userReducer,
     notification: notificationReducer,
     chat: chatReducer,
+    roomchat: roomchatReducer,
     loading: loadingReducer,
     count: countReducer,
     game: gameReducer

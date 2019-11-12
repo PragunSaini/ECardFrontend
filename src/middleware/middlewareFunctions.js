@@ -46,6 +46,29 @@ export const updateUserCount = store => {
     })
 }
 
+export const subscribeRoomChat = store => {
+    store.dispatch({
+        type: ACTIONS.SUBSCRIBE,
+        event: 'room chat msg gotten',
+        handle: msg => {
+            store.dispatch({
+                type: 'ADD_ROOM_CHAT',
+                chat: msg
+            })
+        }
+    })
+}
+
+export const unsubscribeRoomChat = store => {
+    store.dispatch({
+        type: ACTIONS.UNSUBSCRIBE,
+        event: 'room chat msg gotten'
+    })
+    store.dispatch({
+        type: 'CLEAR_ROOM_CHAT_HISTORY'
+    })
+}
+
 // Subscribe game room created event
 export const gameRoomCreated = store => {
     store.dispatch({
@@ -56,6 +79,7 @@ export const gameRoomCreated = store => {
                 type: 'GAME_ROOM_CREATED',
                 room
             })
+            subscribeRoomChat(store)
         }
     })
 }
@@ -70,6 +94,9 @@ export const gameRoomJoined = store => {
                 type: 'GAME_ROOM_JOINED',
                 room
             })
+            if (!store.getState().eventHandlers['room chat msg gotten']) {
+                subscribeRoomChat(store)
+            }
         }
     })
 }

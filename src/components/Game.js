@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 import { ready, cardPlayed } from '../reducers/gameReducer'
+import { sendRoomChat } from '../reducers/roomchatReducer'
 
 import { Emperor, Citizen, Slave } from './Cards'
 
@@ -9,7 +10,7 @@ import Layout from '../styledcomponents/Layout'
 import GameStyles from '../styledcomponents/Game'
 import Buttons from '../styledcomponents/Buttons'
 
-const { BackGround1, BackGround2 } = Layout
+const { BackGround2 } = Layout
 const {
     ReadyBox,
     ButtonDiv,
@@ -26,22 +27,29 @@ const {
     ScoreTable,
     ScoreTD,
     CardBox,
-    ScoreBox
+    ScoreBox,
+    ChatHeader,
+    ChatBox,
+    ChatLI,
+    MessageDiv,
+    ChatInput
 } = GameStyles
-const { StyledButton } = Buttons
+const { StyledButton, SendButton } = Buttons
 
-const Game = ({ game, user, ready, cardPlayed }) => {
+const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat }) => {
     const [buttoncol, setbuttoncol] = useState('rgba(255, 0, 0, 0.7)')
-    const connected = () => {
-        let count = 0
-        if (game.player1SocketID) {
-            count = 1
-        }
-        if (game.player2SocketID) {
-            count += 1
-        }
-        return count
-    }
+    const [chatmsg, setChatmsg] = useState('')
+
+    // const connected = () => {
+    //     let count = 0
+    //     if (game.player1SocketID) {
+    //         count = 1
+    //     }
+    //     if (game.player2SocketID) {
+    //         count += 1
+    //     }
+    //     return count
+    // }
 
     const readyToPlay = () => {
         ready(game.roomid)
@@ -58,6 +66,23 @@ const Game = ({ game, user, ready, cardPlayed }) => {
             setbuttoncol('rgba(0, 255, 100, 0.7)')
             readyToPlay()
         }
+    }
+
+    const getChats = () => {
+        return roomchat.map(chat => (
+            <ChatLI>
+                <span style={{ fontWeight: 800 }}>{chat.displayName} : </span> {chat.msg}
+            </ChatLI>
+        ))
+    }
+
+    const sendChat = e => {
+        e.preventDefault()
+        const msg = chatmsg.trim()
+        if (msg.length > 0) {
+            sendRoomChat({ msg, displayName: user.displayName })
+        }
+        setChatmsg('')
     }
 
     const displayReadyOrNot = () => {
@@ -83,11 +108,38 @@ const Game = ({ game, user, ready, cardPlayed }) => {
                                 <div>
                                     <u>Score</u>
                                 </div>
-                                <div>You -> 100</div>
-                                <div>Opponent -> 200</div>
+                                <div>You -&gt; 100</div>
+                                <div>Opponent -&gt; 200</div>
                             </ScoreBox>
                         </ScoreDiv>
-                        <ChatDiv>CHATTING YO</ChatDiv>
+                        <ChatDiv>
+                            <ChatHeader>Chat with your opponent</ChatHeader>
+                            <ChatBox>{getChats()}</ChatBox>
+                            <MessageDiv>
+                                <ChatInput
+                                    type='text'
+                                    name='roomchat'
+                                    id='roomchat'
+                                    value={chatmsg}
+                                    onChange={e => setChatmsg(e.target.value)}
+                                />
+                                <SendButton onClick={sendChat} type='submit'>
+                                    <svg
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        width='25'
+                                        height='25'
+                                        x='0'
+                                        y='0'
+                                        enableBackground='new 0 0 459 459'
+                                        version='1.1'
+                                        viewBox='0 0 459 459'
+                                        xmlSpace='preserve'
+                                    >
+                                        <path d='M459 216.75L280.5 38.25v102c-178.5 25.5-255 153-280.5 280.5C63.75 331.5 153 290.7 280.5 290.7v104.55L459 216.75z' />
+                                    </svg>
+                                </SendButton>
+                            </MessageDiv>
+                        </ChatDiv>
                     </ScoreDisplay>
                 </GameDiv>
             )
@@ -153,13 +205,15 @@ const Card = ({ id, card, playCard }) => {
 const mapStateToProps = state => {
     return {
         game: state.game,
-        user: state.user
+        user: state.user,
+        roomchat: state.roomchat
     }
 }
 
 const mapDispatchToProps = {
     ready,
-    cardPlayed
+    cardPlayed,
+    sendRoomChat
 }
 
 export default connect(

@@ -86,15 +86,6 @@ const ScoreDiv = styled.div`
     border-right: 1px solid black;
 `
 
-const ChatDiv = styled.div`
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-`
-
 const ScoreHeader = styled.h4`
     padding: 1em 0;
 `
@@ -127,6 +118,50 @@ const CardBox = styled.div`
     }
 `
 
+const ChatDiv = styled.div`
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+`
+
+const ChatHeader = styled.h4`
+    padding: 1em 0 1em 1em;
+    height: 10%;
+`
+
+const ChatBox = styled.ul`
+    height: 80%;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 0 0.5em 1em 0.5em;
+    width: 100%;
+    overflow: auto;
+`
+
+const ChatLI = styled.li`
+    font-size: 1em;
+    text-align: left;
+    padding: 0.3em 0;
+`
+
+const MessageDiv = styled.form`
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+`
+
+const ChatInput = styled.input`
+    width: 90%;
+    font-size: 0.95em;
+    padding: 0 0.5em;
+`
+
 export default {
     ReadyBox,
     ButtonDiv,
@@ -143,5 +178,10 @@ export default {
     ScoreTable,
     ScoreTD,
     CardBox,
-    ScoreBox
+    ScoreBox,
+    ChatHeader,
+    ChatBox,
+    ChatLI,
+    MessageDiv,
+    ChatInput
 }
