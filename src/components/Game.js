@@ -8,8 +8,26 @@ import { Emperor, Citizen, Slave } from './Cards'
 import Layout from '../styledcomponents/Layout'
 import GameStyles from '../styledcomponents/Game'
 import Buttons from '../styledcomponents/Buttons'
+
 const { BackGround1, BackGround2 } = Layout
-const { ReadyBox, ButtonDiv, ReadyMessage } = GameStyles
+const {
+    ReadyBox,
+    ButtonDiv,
+    ReadyMessage,
+    GamePage,
+    GameDiv,
+    CardsDisplay,
+    ScoreDisplay,
+    CardHeader,
+    CardsContainer,
+    ScoreDiv,
+    ChatDiv,
+    ScoreHeader,
+    ScoreTable,
+    ScoreTD,
+    CardBox,
+    ScoreBox
+} = GameStyles
 const { StyledButton } = Buttons
 
 const Game = ({ game, user, ready, cardPlayed }) => {
@@ -29,9 +47,10 @@ const Game = ({ game, user, ready, cardPlayed }) => {
         ready(game.roomid)
     }
 
-    const playCard = card => {
+    const playCard = (card, id) => {
         console.log(card)
         cardPlayed(card, game.roomid)
+        document.querySelector(`#card${id}`).style.boxShadow = '1px 1px 10px 10px grey'
     }
 
     const colorChanger = () => {
@@ -44,24 +63,33 @@ const Game = ({ game, user, ready, cardPlayed }) => {
     const displayReadyOrNot = () => {
         if (game.player1Ready && game.player2Ready) {
             return (
-                <div>
-                    <p>Rounds status</p>
-                    {displayRounds()}
-                    <h1>Your hand</h1>
-                    {game.cards.map(card => (
-                        <h3
-                            onClick={() => playCard(card)}
-                            style={{
-                                width: '10%',
-                                border: '1px solid black',
-                                margin: '20px'
-                            }}
-                        >
-                            {card}
-                        </h3>
-                    ))}
-                    <p>{game.result ? game.result : ''}</p>
-                </div>
+                <GameDiv>
+                    <CardsDisplay>
+                        <CardHeader>Game in Progress...</CardHeader>
+                        <CardHeader>Your Hand</CardHeader>
+                        <CardsContainer>
+                            {game.cards.map(card => {
+                                const key = Math.floor(Math.random() * 1000) + 1
+                                return <Card key={key} card={card} playCard={playCard} id={key} />
+                            })}
+                        </CardsContainer>
+                    </CardsDisplay>
+
+                    <ScoreDisplay>
+                        <ScoreDiv>
+                            <ScoreHeader>Current Score</ScoreHeader>
+                            {displayRounds()}
+                            <ScoreBox>
+                                <div>
+                                    <u>Score</u>
+                                </div>
+                                <div>You -> 100</div>
+                                <div>Opponent -> 200</div>
+                            </ScoreBox>
+                        </ScoreDiv>
+                        <ChatDiv>CHATTING YO</ChatDiv>
+                    </ScoreDisplay>
+                </GameDiv>
             )
         }
         return (
@@ -86,18 +114,39 @@ const Game = ({ game, user, ready, cardPlayed }) => {
         const rounds = game.state.map(round => (
             <tr>
                 {round.map(stage =>
-                    stage == '' ? <td>.</td> : stage == user.uid ? <td>WON</td> : <td>LOST</td>
+                    stage == '' ? (
+                        <ScoreTD> - </ScoreTD>
+                    ) : stage == user.uid ? (
+                        <ScoreTD>WON</ScoreTD>
+                    ) : (
+                        <ScoreTD>LOST</ScoreTD>
+                    )
                 )}
             </tr>
         ))
-        return <table>{rounds}</table>
+        return <ScoreTable>{rounds}</ScoreTable>
     }
 
     return (
         <div>
             <BackGround2 />
+            <GamePage />
             {displayReadyOrNot()}
         </div>
+    )
+}
+
+const Card = ({ id, card, playCard }) => {
+    return (
+        <CardBox id={`card${id}`} onClick={() => playCard(card, id)}>
+            {card == 'E' ? (
+                <Emperor height='50%' />
+            ) : card == 'C' ? (
+                <Citizen height='50%' />
+            ) : (
+                <Slave height='50%' />
+            )}
+        </CardBox>
     )
 }
 
