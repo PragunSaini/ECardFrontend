@@ -183,16 +183,16 @@ export const listenForNextTurn = store => {
     })
 }
 
-export const listenForGameOver = store => {
-    store.dispatch({
-        type: ACTIONS.SUBSCRIBE,
-        event: 'game over',
-        handle: room => {
-            store.dispatch({
-                type: 'GAME_OVER',
-                room,
-                uid: store.getState().user.uid
-            })
-        }
-    })
-}
+// export const listenForGameOver = store => {
+//     store.dispatch({
+//         type: ACTIONS.SUBSCRIBE,
+//         event: 'game over',
+//         handle: room => {
+//             store.dispatch({
+//                 type: 'GAME_OVER',
+//                 room,
+//                 uid: store.getState().user.uid
+//             })
+//         }
+//     })
+// }

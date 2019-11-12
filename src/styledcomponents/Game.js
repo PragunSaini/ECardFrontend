@@ -59,6 +59,12 @@ const CardHeader = styled.h3`
     padding: 2em 0;
 `
 
+const BigCardHeader = styled.h3`
+    padding: 1em 0;
+    font-size: 1.25em;
+    font-weight: bold;
+`
+
 const CardsContainer = styled.div`
     width: 100%;
     display: flex;
@@ -171,6 +177,7 @@ export default {
     CardsDisplay,
     ScoreDisplay,
     CardHeader,
+    BigCardHeader,
     CardsContainer,
     ScoreDiv,
     ChatDiv,

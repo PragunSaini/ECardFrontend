@@ -8,8 +8,8 @@ import {
     roomJoinError,
     gameRoomJoined,
     gameInitAndStart,
-    listenForGameOver,
-    listenForNextTurn
+    listenForNextTurn,
+    unsubscribeRoomChat
 } from './middlewareFunctions'
 
 // The middleware
@@ -35,7 +35,7 @@ const socketMiddleware = store => next => action => {
                     gameRoomJoined(store)
                     gameInitAndStart(store)
                     listenForNextTurn(store)
-                    listenForGameOver(store)
+                    // listenForGameOver(store)
                 })
                 socket.on('unauthorized', error => {
                     console.log('Socket authenticate error', error)
@@ -107,6 +107,11 @@ const socketMiddleware = store => next => action => {
             break
         }
 
+        // To unsubscribe game chat when game over
+        case 'GAME_OVER':
+            unsubscribeRoomChat(store)
+
+        // eslint-disable-next-line
         default:
             next(action)
     }

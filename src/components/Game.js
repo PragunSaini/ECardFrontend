@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-import { ready, cardPlayed } from '../reducers/gameReducer'
+import { ready, cardPlayed, gameOver } from '../reducers/gameReducer'
 import { sendRoomChat } from '../reducers/roomchatReducer'
 
 import { Emperor, Citizen, Slave } from './Cards'
@@ -20,6 +21,7 @@ const {
     CardsDisplay,
     ScoreDisplay,
     CardHeader,
+    BigCardHeader,
     CardsContainer,
     ScoreDiv,
     ChatDiv,
@@ -36,7 +38,7 @@ const {
 } = GameStyles
 const { StyledButton, SendButton } = Buttons
 
-const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat }) => {
+const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat, gameOver, history }) => {
     const [buttoncol, setbuttoncol] = useState('rgba(255, 0, 0, 0.7)')
     const [chatmsg, setChatmsg] = useState('')
 
@@ -90,14 +92,10 @@ const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat }) => {
             return (
                 <GameDiv>
                     <CardsDisplay>
-                        <CardHeader>Game in Progress...</CardHeader>
-                        <CardHeader>Your Hand</CardHeader>
-                        <CardsContainer>
-                            {game.cards.map(card => {
-                                const key = Math.floor(Math.random() * 1000) + 1
-                                return <Card key={key} card={card} playCard={playCard} id={key} />
-                            })}
-                        </CardsContainer>
+                        <CardHeader>
+                            {game.gameOver ? 'Game Over' : 'Game in Progress...'}
+                        </CardHeader>
+                        {game.gameOver ? gameIsOver() : gameNotOver()}
                     </CardsDisplay>
 
                     <ScoreDisplay>
@@ -108,8 +106,8 @@ const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat }) => {
                                 <div>
                                     <u>Score</u>
                                 </div>
-                                <div>You -&gt; 100</div>
-                                <div>Opponent -&gt; 200</div>
+                                <div>You -&gt; {game.myscore}</div>
+                                <div>Opponent -&gt; {game.oppscore}</div>
                             </ScoreBox>
                         </ScoreDiv>
                         <ChatDiv>
@@ -159,6 +157,45 @@ const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat }) => {
                     </StyledButton>
                 </ButtonDiv>
             </ReadyBox>
+        )
+    }
+
+    const gameNotOver = () => (
+        <>
+            <CardHeader>Your Hand</CardHeader>
+            <CardsContainer>
+                {game.cards.map((card, ind) => {
+                    return <Card key={ind} card={card} playCard={playCard} id={ind} />
+                })}
+            </CardsContainer>
+        </>
+    )
+
+    const gameIsOver = () => {
+        let result = ''
+        if (game.myscore > game.oppscore) {
+            result = 'YOU WON !!'
+        } else if (game.myscore < game.oppscore) {
+            result = 'YOU LOST'
+        } else {
+            result = 'IT WAS A DRAW'
+        }
+        return (
+            <>
+                <BigCardHeader>{result}</BigCardHeader>
+                <BigCardHeader>YOU : {game.myscore}</BigCardHeader>
+                <BigCardHeader>Opponent : {game.oppscore}</BigCardHeader>
+                <StyledButton
+                    onClick={() => {
+                        history.push('/')
+                        gameOver()
+                    }}
+                    color='#41448c'
+                    width='45%'
+                >
+                    Return to home page
+                </StyledButton>
+            </>
         )
     }
 
@@ -213,10 +250,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     ready,
     cardPlayed,
-    sendRoomChat
+    sendRoomChat,
+    gameOver
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Game)
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Game)
+)

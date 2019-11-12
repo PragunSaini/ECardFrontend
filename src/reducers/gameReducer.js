@@ -10,8 +10,12 @@ const gameReducer = (state = null, action) => {
             const room = { ...action.room }
             if (room.player1UID == action.uid) {
                 room.cards = room.player1Cards
+                room.myscore = room.player1Score
+                room.oppscore = room.player2Score
             } else {
                 room.cards = room.player2Cards
+                room.myscore = room.player2Score
+                room.oppscore = room.player1Score
             }
             return room
         }
@@ -19,19 +23,17 @@ const gameReducer = (state = null, action) => {
             const room = { ...action.room }
             if (room.player1UID == action.uid) {
                 room.cards = room.player1Cards
+                room.myscore = room.player1Score
+                room.oppscore = room.player2Score
             } else {
                 room.cards = room.player2Cards
+                room.myscore = room.player2Score
+                room.oppscore = room.player1Score
             }
             return room
         }
         case 'GAME_OVER': {
-            const room = { ...action.room }
-            if (room.player1UID == action.uid) {
-                room.cards = room.player1Cards
-            } else {
-                room.cards = room.player2Cards
-            }
-            return room
+            return null
         }
         default:
             return state
@@ -66,6 +68,12 @@ export const cardPlayed = (card, roomid) => {
         type: ACTIONS.EMIT,
         event: 'card played',
         data: { card, roomid }
+    }
+}
+
+export const gameOver = () => {
+    return {
+        type: 'GAME_OVER'
     }
 }
 
