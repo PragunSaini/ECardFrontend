@@ -77,4 +77,12 @@ export const gameOver = () => {
     }
 }
 
+export const eraseGameRoom = roomid => {
+    return {
+        type: ACTIONS.EMIT,
+        event: 'erase game room',
+        data: roomid
+    }
+}
+
 export default gameReducer

@@ -39,6 +39,7 @@ const GamePage = styled.div`
 const GameDiv = styled.div`
     height: 100vh;
     width: 100vw;
+    position: relative;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -112,7 +113,7 @@ const ScoreBox = styled.div`
     font-weight: 500;
     display: flex;
     flex-direction: column;
-    padding: 2em 0;
+    padding: 1em 0;
 `
 
 const CardBox = styled.div`
@@ -168,6 +169,40 @@ const ChatInput = styled.input`
     padding: 0 0.5em;
 `
 
+const NotifyDiv = styled.div`
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+    z-index: 15;
+    background: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: fadein 0.3s ease-in;
+    font-size: 1.5em;
+    box-shadow: 2px 2px 20px 2px black, -2px -2px 20px 2px black;
+
+    @keyframes fadein {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+`
+
+const ScoreArrow = styled.div`
+    font-size: 1.5em;
+    padding: 0.5em 0;
+    font-weight: bold;
+`
+
 export default {
     ReadyBox,
     ButtonDiv,
@@ -190,5 +225,7 @@ export default {
     ChatBox,
     ChatLI,
     MessageDiv,
-    ChatInput
+    ChatInput,
+    NotifyDiv,
+    ScoreArrow
 }

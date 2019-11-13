@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
-import { ready, cardPlayed, gameOver } from '../reducers/gameReducer'
+import { ready, cardPlayed, gameOver, eraseGameRoom } from '../reducers/gameReducer'
 import { sendRoomChat } from '../reducers/roomchatReducer'
 
 import { Emperor, Citizen, Slave } from './Cards'
@@ -34,13 +34,27 @@ const {
     ChatBox,
     ChatLI,
     MessageDiv,
-    ChatInput
+    ChatInput,
+    NotifyDiv,
+    ScoreArrow
 } = GameStyles
 const { StyledButton, SendButton } = Buttons
 
-const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat, gameOver, history }) => {
+const Game = ({
+    game,
+    user,
+    roomchat,
+    ready,
+    cardPlayed,
+    sendRoomChat,
+    eraseGameRoom,
+    gameOver,
+    history
+}) => {
     const [buttoncol, setbuttoncol] = useState('rgba(255, 0, 0, 0.7)')
     const [chatmsg, setChatmsg] = useState('')
+    const [roundDisplay, setRoundDisplay] = useState(true)
+    // const [display, setDisplay] = useState('none')
 
     // const connected = () => {
     //     let count = 0
@@ -52,6 +66,13 @@ const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat, gameOver,
     //     }
     //     return count
     // }
+    useEffect(() => {
+        if (!game.gameOver && game.cards && game.cards.length == 5 && !roundDisplay) {
+            setRoundDisplay(true)
+        } else {
+            setRoundDisplay(false)
+        }
+    }, [game])
 
     const readyToPlay = () => {
         ready(game.roomid)
@@ -91,6 +112,7 @@ const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat, gameOver,
         if (game.player1Ready && game.player2Ready) {
             return (
                 <GameDiv>
+                    {displayDetails()}
                     <CardsDisplay>
                         <CardHeader>
                             {game.gameOver ? 'Game Over' : 'Game in Progress...'}
@@ -103,11 +125,11 @@ const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat, gameOver,
                             <ScoreHeader>Current Score</ScoreHeader>
                             {displayRounds()}
                             <ScoreBox>
-                                <div>
+                                <ScoreArrow>
                                     <u>Score</u>
-                                </div>
-                                <div>You -&gt; {game.myscore}</div>
-                                <div>Opponent -&gt; {game.oppscore}</div>
+                                </ScoreArrow>
+                                <ScoreArrow>You -&gt; {game.myscore}</ScoreArrow>
+                                <ScoreArrow>Opponent -&gt; {game.oppscore}</ScoreArrow>
                             </ScoreBox>
                         </ScoreDiv>
                         <ChatDiv>
@@ -160,11 +182,36 @@ const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat, gameOver,
         )
     }
 
+    const displayDetails = () => {
+        if (roundDisplay) {
+            setTimeout(() => {
+                setRoundDisplay(false)
+            }, 2000)
+            return (
+                <NotifyDiv>
+                    {game.lastWon ? (
+                        game.lastWon == user.uid ? (
+                            <h3>You won the last stage</h3>
+                        ) : (
+                            <h3>You lost the last stage</h3>
+                        )
+                    ) : null}
+                    <h2>
+                        Round {game.round} : Stage {game.stage}
+                    </h2>
+                    <h4>You play as the {game.emperor == user.uid ? 'Emperor' : 'Slave'}</h4>
+                </NotifyDiv>
+            )
+        }
+        return null
+    }
+
     const gameNotOver = () => (
         <>
             <CardHeader>Your Hand</CardHeader>
             <CardsContainer>
                 {game.cards.map((card, ind) => {
+                    // eslint-disable-next-line
                     return <Card key={ind} card={card} playCard={playCard} id={ind} />
                 })}
             </CardsContainer>
@@ -180,6 +227,24 @@ const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat, gameOver,
         } else {
             result = 'IT WAS A DRAW'
         }
+        if (!game.player1UID || !game.player2UID) {
+            return (
+                <>
+                    <BigCardHeader>Your opponent left, you WIN !!</BigCardHeader>
+                    <StyledButton
+                        onClick={() => {
+                            history.push('/')
+                            gameOver()
+                            eraseGameRoom(game.roomid)
+                        }}
+                        color='#41448c'
+                        width='45%'
+                    >
+                        Return to home page
+                    </StyledButton>
+                </>
+            )
+        }
         return (
             <>
                 <BigCardHeader>{result}</BigCardHeader>
@@ -189,6 +254,7 @@ const Game = ({ game, user, roomchat, ready, cardPlayed, sendRoomChat, gameOver,
                     onClick={() => {
                         history.push('/')
                         gameOver()
+                        eraseGameRoom(game.roomid)
                     }}
                     color='#41448c'
                     width='45%'
@@ -251,7 +317,8 @@ const mapDispatchToProps = {
     ready,
     cardPlayed,
     sendRoomChat,
-    gameOver
+    gameOver,
+    eraseGameRoom
 }
 
 export default withRouter(

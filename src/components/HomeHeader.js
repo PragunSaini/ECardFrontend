@@ -27,17 +27,17 @@ const HomeHeader = ({ history, user, logoutUser, createNewGameRoom, joinGameRoom
         if (user) {
             console.log(user.displayName)
             return (
-                <div>
+                <>
                     <NavLinks.User name={user.displayName} />
                     <NavLinks.Logout onLogout={onLogout} />
-                </div>
+                </>
             )
         }
         return (
-            <div>
+            <>
                 <NavLinks.Login />
                 <NavLinks.Register />
-            </div>
+            </>
         )
     }
 
