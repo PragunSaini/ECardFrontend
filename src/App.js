@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import firebase from './config/firebase'
 
+import Loader from './components/Loader'
 import Login from './components/Login'
 import Register from './components/Register'
 import Home from './components/Home'
@@ -48,22 +49,17 @@ const App = props => {
         startLoading()
         connectToSocket()
         checkToken()
+        console.log('I AM THE WIIIIIIIIIIIIIIIIIND')
     }, [])
 
     useEffect(() => {
         checkinGame()
     }, [game])
 
-    useEffect(() => {
-        console.log('JUST RENDERED BABY')
-    })
-
     return (
         <Layout.Body>
-            <Notification />
-
             {loading ? (
-                <p style={{ color: 'black' }}>Loading</p>
+                <Loader />
             ) : (
                 <Switch>
                     <Route path='/login' render={() => (user ? <Redirect to='/' /> : <Login />)} />

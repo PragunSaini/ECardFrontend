@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import registerService from '../services/registerService'
-import { notify } from '../reducers/notificationReducer'
 
 import Logo from './Logo'
 import NavLinks from './NavLinks'
@@ -14,7 +13,7 @@ import LoginStyles from '../styledcomponents/LoginStyles'
 const { LoginSection, RegBox, RegForm, NavBox, Heading, Label, Input, ErrorBox } = LoginStyles
 
 // To register new users
-const Register = ({ notify }) => {
+const Register = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -47,7 +46,6 @@ const Register = ({ notify }) => {
         e.preventDefault()
         try {
             const user = await registerService.userRegister(name, email, password)
-            notify('Succesfully registered, please login', 3)
             console.log(`NEW USER REGISTERED`, user)
         } catch (err) {
             errorHandler(err.response.data)
@@ -135,9 +133,7 @@ const Register = ({ notify }) => {
     )
 }
 
-const mapDispatchToProps = {
-    notify
-}
+const mapDispatchToProps = {}
 
 export default connect(
     null,

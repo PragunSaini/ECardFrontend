@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom'
 import firebase from '../config/firebase'
 
 import { authenticateSocket } from '../reducers/socketReducer'
-import { notify } from '../reducers/notificationReducer'
 import { startLoading } from '../reducers/loadingReducer'
 
 import Logo from './Logo'
@@ -20,7 +19,7 @@ const { LoginSection, LoginBox, NavBox } = LoginStyles
 
 // To login users
 const Login = props => {
-    const { authenticateSocket, notify, startLoading } = props
+    const { authenticateSocket, startLoading } = props
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -72,12 +71,9 @@ const Login = props => {
             .then(() => {
                 if (firebase.auth().currentUser) {
                     // User has logged in so send thumbs up to server
-                    authenticateSocket(firebase.auth().currentUser.uid, false, '')
-                    notify('Succesfully Logged In', 2)
                     startLoading()
-                    setTimeout(() => {
-                        props.history.push('/')
-                    }, 1000)
+                    authenticateSocket(firebase.auth().currentUser.uid, false, '')
+                    props.history.push('/')
                 }
             })
             .catch(error => {
@@ -97,11 +93,9 @@ const Login = props => {
                 Math.random()
                     .toString(36)
                     .substring(2, 15)
+            startLoading()
             authenticateSocket(uid, true, guest)
-            notify('Succesfully Logged In', 3)
-            setTimeout(() => {
-                props.history.push('/')
-            }, 3000)
+            props.history.push('/')
         } catch (error) {
             errorhandler(error)
         }
@@ -145,7 +139,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     authenticateSocket,
-    notify,
     startLoading
 }
 

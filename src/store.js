@@ -8,7 +8,6 @@ import eventHandlerReducer from './reducers/eventHandlerReducer'
 import socketReducer from './reducers/socketReducer'
 import userReducer from './reducers/userReducer'
 import loadingReducer from './reducers/loadingReducer'
-import notificationReducer from './reducers/notificationReducer'
 import chatReducer from './reducers/chatReducer'
 import roomchatReducer from './reducers/roomchatReducer'
 import countReducer from './reducers/countReducer'
@@ -19,7 +18,6 @@ const reducer = combineReducers({
     eventHandlers: eventHandlerReducer,
     socket: socketReducer,
     user: userReducer,
-    notification: notificationReducer,
     chat: chatReducer,
     roomchat: roomchatReducer,
     loading: loadingReducer,
