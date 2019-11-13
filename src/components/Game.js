@@ -54,6 +54,7 @@ const Game = ({
     const [buttoncol, setbuttoncol] = useState('rgba(255, 0, 0, 0.7)')
     const [chatmsg, setChatmsg] = useState('')
     const [roundDisplay, setRoundDisplay] = useState(true)
+    const [high, setHigh] = useState(false)
     // const [display, setDisplay] = useState('none')
 
     // const connected = () => {
@@ -72,6 +73,13 @@ const Game = ({
         } else {
             setRoundDisplay(false)
         }
+        setHigh(false)
+        if (document.querySelector('.cards-container')) {
+            const cards = document.querySelector('.cards-container').children
+            for (let i = 0; i < cards.length; i += 1) {
+                cards[i].style.boxShadow = 'none'
+            }
+        }
     }, [game])
 
     const readyToPlay = () => {
@@ -81,7 +89,10 @@ const Game = ({
     const playCard = (card, id) => {
         console.log(card)
         cardPlayed(card, game.roomid)
-        document.querySelector(`#card${id}`).style.boxShadow = '1px 1px 10px 10px grey'
+        if (!high) {
+            document.querySelector(`#card${id}`).style.boxShadow = '1px 1px 10px 10px grey'
+            setHigh(true)
+        }
     }
 
     const colorChanger = () => {
@@ -209,7 +220,7 @@ const Game = ({
     const gameNotOver = () => (
         <>
             <CardHeader>Your Hand</CardHeader>
-            <CardsContainer>
+            <CardsContainer className='cards-container'>
                 {game.cards.map((card, ind) => {
                     // eslint-disable-next-line
                     return <Card key={ind} card={card} playCard={playCard} id={ind} />
