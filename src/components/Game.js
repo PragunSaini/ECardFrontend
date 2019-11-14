@@ -178,7 +178,15 @@ const Game = ({
         return (
             <ReadyBox>
                 <ButtonDiv>
+                    <ReadyMessage style={{ textAlign: 'center' }}>
+                        Your game room code is {game.roomid}
+                    </ReadyMessage>
+                    <ReadyMessage style={{ textAlign: 'center' }}>
+                        Tell your opponent to enter it in the homepage and Join Game to play with
+                        you
+                    </ReadyMessage>
                     <ReadyMessage>Waiting for both players to be ready ...</ReadyMessage>
+
                     <StyledButton
                         color={buttoncol}
                         width='100%'
