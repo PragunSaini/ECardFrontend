@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { store } from 'react-notifications-component'
 
 import { logoutUser } from '../reducers/userReducer'
 import { createNewGameRoom, joinGameRoom } from '../reducers/gameReducer'
@@ -20,6 +21,18 @@ const HomeHeader = ({ history, user, logoutUser, createNewGameRoom, joinGameRoom
 
     const onLogout = e => {
         e.preventDefault()
+        store.addNotification({
+            title: 'Bye',
+            message: 'Succesfully logged out',
+            type: 'warning',
+            insert: 'bottom',
+            container: 'bottom-right',
+            animationIn: ['animated', 'fadeIn'],
+            animationOut: ['animated', 'fadeOut'],
+            dismiss: {
+                duration: 1500
+            }
+        })
         logoutUser()
     }
 

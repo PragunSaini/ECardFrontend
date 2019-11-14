@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { store } from 'react-notifications-component'
 import registerService from '../services/registerService'
 
 import Logo from './Logo'
@@ -46,6 +47,18 @@ const Register = () => {
         e.preventDefault()
         try {
             const user = await registerService.userRegister(name, email, password)
+            store.addNotification({
+                title: 'Succesfully registered',
+                message: 'You may now login',
+                type: 'success',
+                insert: 'bottom',
+                container: 'bottom-right',
+                animationIn: ['animated', 'fadeIn'],
+                animationOut: ['animated', 'fadeOut'],
+                dismiss: {
+                    duration: 1500
+                }
+            })
             console.log(`NEW USER REGISTERED`, user)
         } catch (err) {
             errorHandler(err.response.data)

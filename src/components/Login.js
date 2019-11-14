@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { store } from 'react-notifications-component'
 import firebase from '../config/firebase'
 
 import { authenticateSocket } from '../reducers/socketReducer'
@@ -73,6 +74,18 @@ const Login = props => {
                     // User has logged in so send thumbs up to server
                     startLoading()
                     authenticateSocket(firebase.auth().currentUser.uid, false, '')
+                    store.addNotification({
+                        title: 'Success',
+                        message: 'You have logged in',
+                        type: 'success',
+                        insert: 'bottom',
+                        container: 'bottom-right',
+                        animationIn: ['animated', 'fadeIn'],
+                        animationOut: ['animated', 'fadeOut'],
+                        dismiss: {
+                            duration: 1500
+                        }
+                    })
                     props.history.push('/')
                 }
             })
@@ -95,6 +108,18 @@ const Login = props => {
                     .substring(2, 15)
             startLoading()
             authenticateSocket(uid, true, guest)
+            store.addNotification({
+                title: 'Success',
+                message: 'You have logged in',
+                type: 'success',
+                insert: 'bottom',
+                container: 'bottom-right',
+                animationIn: ['animated', 'fadeIn'],
+                animationOut: ['animated', 'fadeOut'],
+                dismiss: {
+                    duration: 1500
+                }
+            })
             props.history.push('/')
         } catch (error) {
             errorhandler(error)

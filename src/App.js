@@ -7,7 +7,6 @@ import Loader from './components/Loader'
 import Login from './components/Login'
 import Register from './components/Register'
 import Home from './components/Home'
-import Notification from './components/Notification'
 import Chat from './components/Chat'
 import Game from './components/Game'
 
