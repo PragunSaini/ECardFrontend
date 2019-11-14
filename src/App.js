@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 import firebase from './config/firebase'
 
 import Loader from './components/Loader'
@@ -57,6 +58,16 @@ const App = props => {
 
     return (
         <Layout.Body>
+            <Helmet>
+                <meta charset='utf-8' />
+                <title>E-Card</title>
+                <meta
+                    name='description'
+                    content='E-Card is a real time multiplayer strategy card game.'
+                />
+                <meta name='language' content='English' />
+                <meta name='author' content='Pragun Saini' />
+            </Helmet>
             {loading ? (
                 <Loader />
             ) : (

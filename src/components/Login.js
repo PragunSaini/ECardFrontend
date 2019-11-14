@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { store } from 'react-notifications-component'
+import { Helmet } from 'react-helmet'
 import firebase from '../config/firebase'
 
 import { authenticateSocket } from '../reducers/socketReducer'
@@ -130,6 +131,9 @@ const Login = props => {
         <>
             <Layout.BackGround2 />
             <LoginSection>
+                <Helmet>
+                    <title>E-Card | Login </title>
+                </Helmet>
                 <NavBox>
                     <NavBar.NavBar>
                         <Logo logowidth='100%' />

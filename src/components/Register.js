@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { store } from 'react-notifications-component'
+import { Helmet } from 'react-helmet'
 import registerService from '../services/registerService'
 
 import Logo from './Logo'
@@ -69,6 +70,9 @@ const Register = () => {
         <>
             <Layout.BackGround2 />
             <LoginSection>
+                <Helmet>
+                    <title>E-Card | Register </title>
+                </Helmet>
                 <NavBox>
                     <NavBar.NavBar>
                         <Logo logowidth='100%' />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { Helmet } from 'react-helmet'
 
 import { sendChat } from '../reducers/chatReducer'
 
@@ -53,6 +54,9 @@ const Chat = ({ user, chats, count, sendChat }) => {
         <div>
             <BackGround1 />
             <LoginSection>
+                <Helmet>
+                    <title>E-Card | Global Chat </title>
+                </Helmet>
                 <NavBox
                     style={{
                         height: '80px'
