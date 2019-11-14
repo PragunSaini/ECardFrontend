@@ -29,6 +29,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 // Create the store and apply relevant middlewares
 const store = createStore(reducer, composeEnhancers(applyMiddleware(socketMiddleware, thunk)))
-store.subscribe(() => console.log(store.getState()))
+// store.subscribe(() => console.log(store.getState()))
 
 export default store

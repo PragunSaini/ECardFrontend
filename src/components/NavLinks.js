@@ -30,7 +30,12 @@ const Register = () => (
 
 const User = ({ name }) => (
     <StyledLI>
-        <StyledLink to='/user'>{name} 😄</StyledLink>
+        <StyledLink to='/user'>
+            {name}{' '}
+            <span role='img' aria-label='happy face emoji'>
+                😄
+            </span>
+        </StyledLink>
     </StyledLI>
 )
 

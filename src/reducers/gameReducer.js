@@ -1,3 +1,5 @@
+/* eslint "eqeqeq": "off" */
+
 import { ACTIONS } from '../middleware/middlewareFunctions'
 
 const gameReducer = (state = null, action) => {

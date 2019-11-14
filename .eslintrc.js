@@ -28,7 +28,6 @@ module.exports = {
         'react/prop-types': 0,
         'no-shadow': 0,
         'no-use-before-define': 'off',
-        'no-nested-ternary': 'off',
-        eqeqeq: 'off'
+        'no-nested-ternary': 'off'
     }
 }

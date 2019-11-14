@@ -1,3 +1,5 @@
+/* eslint "react-hooks/exhaustive-deps": "off", "eqeqeq": "off" */
+
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
@@ -49,7 +51,6 @@ const App = props => {
         startLoading()
         connectToSocket()
         checkToken()
-        console.log('I AM THE WIIIIIIIIIIIIIIIIIND')
     }, [])
 
     useEffect(() => {

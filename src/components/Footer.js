@@ -8,7 +8,7 @@ const Footer = () => (
         <Logo logowidth='15%' />
         <FooterStyles.Group>
             <FooterStyles.MadeBy>Made By Pragun Saini</FooterStyles.MadeBy>
-            <a href='https://github.com/PragunSaini' target='_blank'>
+            <a href='https://github.com/PragunSaini' target='_blank' rel='noopener noreferrer'>
                 <svg
                     xmlns='http://www.w3.org/2000/svg'
                     width='30px'

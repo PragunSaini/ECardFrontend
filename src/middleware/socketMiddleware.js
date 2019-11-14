@@ -14,7 +14,7 @@ import {
 
 // The middleware
 const socketMiddleware = store => next => action => {
-    console.log('Action  => ', action)
+    // console.log('Action  => ', action)
 
     const { socket, eventHandlers } = store.getState()
     const { type, event, handle, data } = action
