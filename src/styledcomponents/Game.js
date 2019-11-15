@@ -167,6 +167,7 @@ const ChatInput = styled.input`
     width: 90%;
     font-size: 0.95em;
     padding: 0 0.5em;
+    border-top: 0.5px solid black;
 `
 
 const NotifyDiv = styled.div`
@@ -203,6 +204,26 @@ const ScoreArrow = styled.div`
     font-weight: bold;
 `
 
+const LastMoves = styled.div`
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    padding: 0.5em 0.5em 0 0;
+`
+
+const MovesDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    > {
+        margin: 0 0.5em;
+    }
+`
+
 export default {
     ReadyBox,
     ButtonDiv,
@@ -227,5 +248,7 @@ export default {
     MessageDiv,
     ChatInput,
     NotifyDiv,
-    ScoreArrow
+    ScoreArrow,
+    LastMoves,
+    MovesDiv
 }

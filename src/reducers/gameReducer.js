@@ -14,10 +14,14 @@ const gameReducer = (state = null, action) => {
                 room.cards = room.player1Cards
                 room.myscore = room.player1Score
                 room.oppscore = room.player2Score
+                room.mylastmove = room.player1LastMove
+                room.opplastmove = room.player2LastMove
             } else {
                 room.cards = room.player2Cards
                 room.myscore = room.player2Score
                 room.oppscore = room.player1Score
+                room.mylastmove = room.player2LastMove
+                room.opplastmove = room.player1LastMove
             }
             return room
         }
@@ -27,10 +31,14 @@ const gameReducer = (state = null, action) => {
                 room.cards = room.player1Cards
                 room.myscore = room.player1Score
                 room.oppscore = room.player2Score
+                room.mylastmove = room.player1LastMove
+                room.opplastmove = room.player2LastMove
             } else {
                 room.cards = room.player2Cards
                 room.myscore = room.player2Score
                 room.oppscore = room.player1Score
+                room.mylastmove = room.player2LastMove
+                room.opplastmove = room.player1LastMove
             }
             return room
         }

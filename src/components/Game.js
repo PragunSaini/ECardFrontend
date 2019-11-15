@@ -38,7 +38,9 @@ const {
     MessageDiv,
     ChatInput,
     NotifyDiv,
-    ScoreArrow
+    ScoreArrow,
+    LastMoves,
+    MovesDiv
 } = GameStyles
 const { StyledButton, SendButton } = Buttons
 
@@ -57,18 +59,7 @@ const Game = ({
     const [chatmsg, setChatmsg] = useState('')
     const [roundDisplay, setRoundDisplay] = useState(true)
     const [high, setHigh] = useState(false)
-    // const [display, setDisplay] = useState('none')
 
-    // const connected = () => {
-    //     let count = 0
-    //     if (game.player1SocketID) {
-    //         count = 1
-    //     }
-    //     if (game.player2SocketID) {
-    //         count += 1
-    //     }
-    //     return count
-    // }
     useEffect(() => {
         if (!game.gameOver && game.cards && game.cards.length == 5 && !roundDisplay) {
             setRoundDisplay(true)
@@ -121,10 +112,35 @@ const Game = ({
         setChatmsg('')
     }
 
+    const returnCard = move => {
+        if (!move) {
+            return null
+        }
+        if (move == 'E') {
+            return <Emperor width='30px' />
+        }
+        if (move == 'C') {
+            return <Citizen width='30px' />
+        }
+        return <Slave width='30px' />
+    }
+
     const displayReadyOrNot = () => {
         if (game.player1Ready && game.player2Ready) {
             return (
                 <GameDiv>
+                    <LastMoves>
+                        <CardHeader style={{ textAlign: 'center', padding: '0 0 0.5em 0' }}>
+                            Last Moves:
+                        </CardHeader>
+                        <MovesDiv>
+                            <strong>You :</strong>
+                            {returnCard(game.mylastmove)}
+                            <strong>-</strong>
+                            {returnCard(game.opplastmove)}
+                            <strong>: Opponent</strong>
+                        </MovesDiv>
+                    </LastMoves>
                     {displayDetails()}
                     <CardsDisplay>
                         <CardHeader>
@@ -135,7 +151,9 @@ const Game = ({
 
                     <ScoreDisplay>
                         <ScoreDiv>
-                            <ScoreHeader>Current Score</ScoreHeader>
+                            <ScoreHeader>
+                                <u>Current Score</u>
+                            </ScoreHeader>
                             {displayRounds()}
                             <ScoreBox>
                                 <ScoreArrow>
@@ -146,7 +164,9 @@ const Game = ({
                             </ScoreBox>
                         </ScoreDiv>
                         <ChatDiv>
-                            <ChatHeader>Chat with your opponent</ChatHeader>
+                            <ChatHeader>
+                                <u>Chat with your opponent</u>
+                            </ChatHeader>
                             <ChatBox>{getChats()}</ChatBox>
                             <MessageDiv>
                                 <ChatInput
