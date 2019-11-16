@@ -7,6 +7,10 @@ const HeaderHeading = styled.h1`
     width: 70%;
     font-size: 3em;
     margin: 0 auto 30px auto;
+
+    @media screen and (max-width: 950px) {
+        width: 100%;
+    }
 `
 
 export default HeaderHeading

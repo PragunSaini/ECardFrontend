@@ -12,11 +12,15 @@ const ReadyBox = styled.div`
 
 const ButtonDiv = styled.div`
     width: 50%;
-    height: 40vh;
+    height: 50vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     flex-direction: row;
+
+    @media screen and (max-width: 1050px) {
+        width: 80%;
+    }
 `
 
 const ReadyMessage = styled.div`
@@ -44,6 +48,10 @@ const GameDiv = styled.div`
     flex-direction: column;
     flex-wrap: nowrap;
     color: black;
+
+    @media screen and (max-width: 1050px) {
+        height: auto;
+    }
 `
 
 const CardsDisplay = styled.div`
@@ -54,10 +62,19 @@ const CardsDisplay = styled.div`
     justify-content: start;
     align-items: center;
     border-bottom: 5px solid black;
+
+    @media screen and (max-width: 1050px) {
+        height: auto;
+        padding-bottom: 2em;
+    }
 `
 
 const CardHeader = styled.h3`
     padding: 2em 0;
+
+    @media screen and (max-width: 1050px) {
+        padding: 1.25em 0;
+    }
 `
 
 const BigCardHeader = styled.h3`
@@ -81,6 +98,11 @@ const ScoreDisplay = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+
+    @media screen and (max-width: 1050px) {
+        flex-direction: column;
+        // height: auto;
+    }
 `
 
 const ScoreDiv = styled.div`
@@ -91,10 +113,23 @@ const ScoreDiv = styled.div`
     justify-content: space-start;
     align-items: center;
     border-right: 1px solid black;
+
+    @media screen and (max-width: 1050px) {
+        width: 100%;
+        padding: 0 2.5% 1em 2.5%;
+        flex-direction: row;
+        justify-content: space-between;
+        border-right: none;
+        border-bottom: 2px solid black;
+    }
 `
 
 const ScoreHeader = styled.h4`
     padding: 1em 0;
+
+    @media screen and (max-width: 1050px) {
+        font-size: 1.5em;
+    }
 `
 
 const ScoreTable = styled.table`
@@ -131,6 +166,12 @@ const ChatDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: start;
+
+    @media screen and (max-width: 1050px) {
+        width: 100%;
+        height: 40vh;
+        background: #fae7ed;
+    }
 `
 
 const ChatHeader = styled.h4`
@@ -213,9 +254,10 @@ const LastMoves = styled.div`
 `
 
 const MovesDiv = styled.div`
+    width: 250px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
 

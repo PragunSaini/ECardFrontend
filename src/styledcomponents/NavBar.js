@@ -9,6 +9,10 @@ const NavBar = styled.div`
     height: 130px;
     width: 100%;
     padding: 30px 8%;
+
+    @media screen and (max-width: 1050px) {
+        margin-bottom: 30px;
+    }
 `
 
 const SubNav = styled.nav`

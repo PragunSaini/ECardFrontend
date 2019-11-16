@@ -16,6 +16,10 @@ const MainBox = styled.div`
     position: relative;
     z-index: 2;
     width: 50%;
+
+    @media screen and (max-width: 950px) {
+        width: 70%;
+    }
 `
 
 const MainHeader = styled.h2`
@@ -25,6 +29,10 @@ const MainHeader = styled.h2`
     margin-bottom: 3%;
     letter-spacing: 0.09;
     text-transform: uppercase;
+
+    @media screen and (max-width: 950px) {
+        font-size: 2.3em;
+    }
 `
 
 const SubHeader = styled.p`

@@ -8,6 +8,10 @@ const LoginSection = styled.div`
     align-items: center;
     position: relative;
     flex-direction: column;
+
+    @media screen and (max-width: 1050px) {
+        height: auto;
+    }
 `
 
 const NavBox = styled.div`
@@ -26,6 +30,15 @@ const LoginBox = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     color: black;
+
+    @media screen and (max-width: 1050px) {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        height: auto;
+        align-items: center;
+        margin-bottom: 2em;
+        width: 80%;
+    }
 `
 
 const RegBox = styled.div`
@@ -38,6 +51,10 @@ const RegBox = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     color: black;
+
+    @media screen and (max-width: 1050px) {
+        width: 80%;
+    }
 `
 
 const GuestBox = styled.div`
@@ -46,6 +63,13 @@ const GuestBox = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: start;
+
+    @media screen and (max-width: 1050px) {
+        width: 95%;
+        border-right: none;
+        border-bottom: 1px solid #909090;
+        padding-bottom: 2em;
+    }
 `
 
 const UserBox = styled.div`
@@ -55,6 +79,13 @@ const UserBox = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: start;
+
+    @media screen and (max-width: 1050px) {
+        width: 95%;
+        border-right: none;
+        border-bottom: 1px solid #909090;
+        padding-bottom: 2em;
+    }
 `
 
 const Heading = styled.h2`
@@ -68,6 +99,10 @@ const Form = styled.form`
     text-align: left;
     padding: 0 20px 40px;
     border-bottom: 1px solid #222;
+
+    @media screen and (max-width: 1050px) {
+        border-bottom: none;
+    }
 `
 
 const RegForm = styled.div`

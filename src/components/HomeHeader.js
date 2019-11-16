@@ -110,7 +110,7 @@ const HomeHeader = ({ history, user, logoutUser, createNewGameRoom, joinGameRoom
                             htmlFor='joingame'
                             style={{
                                 alignItems: 'center',
-                                width: '50%'
+                                width: '80%'
                             }}
                         >
                             Join a game (enter the game id here)
@@ -123,6 +123,7 @@ const HomeHeader = ({ history, user, logoutUser, createNewGameRoom, joinGameRoom
                                     setGameid(e.target.value)
                                 }}
                                 style={{
+                                    letterSpacing: '0.5em',
                                     textAlign: 'center',
                                     fontSize: '1.2em'
                                 }}
