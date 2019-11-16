@@ -62,6 +62,7 @@ const Messages = styled.ul`
     flex-direction: column;
     justify-content: end;
     flex-grow: 1;
+    overflow: auto;
 `
 
 const Message = styled.li`
@@ -82,7 +83,7 @@ const Label = styled.label`
     height: 100%;
 `
 
-const Input = styled.textarea`
+const Input = styled.input`
     width: 100%;
     height: 100%;
     resize: none;
