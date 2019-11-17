@@ -1,3 +1,5 @@
+import { store } from 'react-notifications-component'
+
 // Constants to identify dispatches
 export const ACTIONS = Object.freeze({
     CONNECT: 'SOCKET_CONNECT',
@@ -107,16 +109,18 @@ export const roomJoinError = store => {
         type: ACTIONS.SUBSCRIBE,
         event: 'no such room',
         handle: () => {
-            store.dispatch({
-                type: 'NOTIFY',
-                message: 'No room with this ID exists'
+            store.addNotification({
+                title: 'Error',
+                message: "Room with this id doesn't exist",
+                type: 'error',
+                insert: 'bottom',
+                container: 'bottom-right',
+                animationIn: ['animated', 'fadeIn'],
+                animationOut: ['animated', 'fadeOut'],
+                dismiss: {
+                    duration: 1500
+                }
             })
-
-            setTimeout(() => {
-                store.dispatch({
-                    type: 'TIMEOUT'
-                })
-            }, 2 * 500)
         }
     })
 
@@ -124,16 +128,18 @@ export const roomJoinError = store => {
         type: ACTIONS.SUBSCRIBE,
         event: 'room full',
         handle: () => {
-            store.dispatch({
-                type: 'NOTIFY',
-                message: 'The room you are trying to join is already full'
+            store.addNotification({
+                title: 'Error',
+                message: 'Room already full',
+                type: 'error',
+                insert: 'bottom',
+                container: 'bottom-right',
+                animationIn: ['animated', 'fadeIn'],
+                animationOut: ['animated', 'fadeOut'],
+                dismiss: {
+                    duration: 1500
+                }
             })
-
-            setTimeout(() => {
-                store.dispatch({
-                    type: 'TIMEOUT'
-                })
-            }, 2 * 500)
         }
     })
 
@@ -141,16 +147,18 @@ export const roomJoinError = store => {
         type: ACTIONS.SUBSCRIBE,
         event: 'cannot join own room',
         handle: () => {
-            store.dispatch({
-                type: 'NOTIFY',
-                message: 'You have already joined your own room'
+            store.addNotification({
+                title: 'Error',
+                message: "Can't join your own room",
+                type: 'error',
+                insert: 'bottom',
+                container: 'bottom-right',
+                animationIn: ['animated', 'fadeIn'],
+                animationOut: ['animated', 'fadeOut'],
+                dismiss: {
+                    duration: 1500
+                }
             })
-
-            setTimeout(() => {
-                store.dispatch({
-                    type: 'TIMEOUT'
-                })
-            }, 2 * 500)
         }
     })
 }
