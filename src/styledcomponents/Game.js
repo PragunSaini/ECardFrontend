@@ -62,10 +62,21 @@ const CardsDisplay = styled.div`
     justify-content: start;
     align-items: center;
     border-bottom: 5px solid black;
+    background: #fae7ed;
 
     @media screen and (max-width: 1050px) {
         height: auto;
         padding-bottom: 2em;
+    }
+
+    @media screen and (max-width: 768px) {
+        align-items: start;
+        padding-left: 1em;
+    }
+
+    @media screen and (max-width: 500px) {
+        padding-top: 100px;
+        align-items: center;
     }
 `
 
@@ -90,6 +101,12 @@ const CardsContainer = styled.div`
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
+
+    @media screen and (max-width: 500px) {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
 `
 
 const ScoreDisplay = styled.div`
@@ -113,6 +130,7 @@ const ScoreDiv = styled.div`
     justify-content: space-start;
     align-items: center;
     border-right: 1px solid black;
+    background: #fae7ed;
 
     @media screen and (max-width: 1050px) {
         width: 100%;
@@ -121,6 +139,12 @@ const ScoreDiv = styled.div`
         justify-content: space-between;
         border-right: none;
         border-bottom: 2px solid black;
+    }
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        height: auto;
+        justify-content: start;
     }
 `
 
@@ -136,13 +160,19 @@ const ScoreTable = styled.table`
     padding: 2em 0;
     width: 45%;
     font-weight: 500;
+
+    @media screen and (max-width: 500px) {
+        width: 90%;
+    }
 `
+
 const ScoreTD = styled.td`
     border: 1px solid black;
     width: 20%;
     height: 40px;
     text-align: center;
 `
+
 const ScoreBox = styled.div`
     font-weight: 2em;
     font-weight: 500;
@@ -166,11 +196,11 @@ const ChatDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: start;
+    background: #fae7ed;
 
     @media screen and (max-width: 1050px) {
         width: 100%;
         height: 40vh;
-        background: #fae7ed;
     }
 `
 
@@ -251,6 +281,11 @@ const LastMoves = styled.div`
     right: 0;
     width: auto;
     padding: 0.5em 0.5em 0 0;
+
+    @media screen and (max-width: 500px) {
+        right: 50%;
+        transform: translateX(50%);
+    }
 `
 
 const MovesDiv = styled.div`
