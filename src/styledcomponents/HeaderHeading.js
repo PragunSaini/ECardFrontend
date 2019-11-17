@@ -11,6 +11,11 @@ const HeaderHeading = styled.h1`
     @media screen and (max-width: 950px) {
         width: 100%;
     }
+
+    @media screen and (max-width: 500px) {
+        font-size: 1.5em;
+        padding: 0 1em;
+    }
 `
 
 export default HeaderHeading

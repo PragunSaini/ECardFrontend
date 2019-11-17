@@ -6,19 +6,29 @@ import logo from '../assets/tarotlogo.png'
 const StyledLink = styled(Link)`
     color: '#fff';
     text-decoration: none;
+
+    @media screen and (max-width: 500px) {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 0.5em;
+    }
+`
+
+const StyledDiv = styled.div`
+    width: 300px;
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width: 500px) {
+        width: 100%;
+        justify-content: center;
+    }
 `
 
 const Logo = ({ logowidth }) => {
     return (
         <StyledLink to='/'>
-            <div
-                className='logo'
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    width: '300px'
-                }}
-            >
+            <StyledDiv>
                 <img
                     src={logo}
                     alt='logo'
@@ -41,7 +51,7 @@ const Logo = ({ logowidth }) => {
                 >
                     EmperorCard
                 </div>
-            </div>
+            </StyledDiv>
         </StyledLink>
     )
 }

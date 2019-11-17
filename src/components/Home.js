@@ -9,13 +9,13 @@ import Layout from '../styledcomponents/Layout'
 
 const Home = () => {
     return (
-        <div>
+        <Layout.Main>
             <Layout.BackGround2 />
             <Layout.BackGround1 />
             <HomeHeader />
             <HowToPlay />
             <Footer />
-        </div>
+        </Layout.Main>
     )
 }
 

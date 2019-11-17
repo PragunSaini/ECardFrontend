@@ -1,5 +1,12 @@
 import styled from 'styled-components'
 
+const Main = styled.div`
+    @media screen and (max-width: 500px) {
+        max-width: 100vw;
+        overflow: hidden;
+    }
+`
+
 const Body = styled.div`
     font-family: 'Montserrat', 'serif';
     color: #fff;
@@ -47,6 +54,11 @@ const Header = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+
+    @media screen and (max-width: 500px) {
+        height: auto;
+        max-height: 200vh;
+    }
 `
 
 const Section = styled.section`
@@ -64,6 +76,10 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: start;
+
+    @media screen and (max-width: 500px) {
+        width: 90%;
+    }
 `
 
 const LoaderPage = styled.div`
@@ -339,6 +355,7 @@ const LoaderText = styled.h1`
 `
 
 export default {
+    Main,
     Body,
     BackGround2,
     BackGround1,

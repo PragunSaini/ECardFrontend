@@ -7,6 +7,11 @@ const ChatBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: start;
+
+    @media screen and (max-width: 500px) {
+        height: calc(100vh - 50px);
+        margin-top: 50px;
+    }
 `
 
 const Chats = styled.div`
@@ -18,6 +23,10 @@ const Chats = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: start;
+
+    @media screen and (max-width: 500px) {
+        height: 95%;
+    }
 `
 const ChatHeadBlock = styled.div`
     display: flex;
@@ -44,6 +53,10 @@ const ChatDesc = styled.h3`
     font-size: 1.1em;
     font-weight: 500;
     margin: 0 10px;
+
+    @media screen and (max-width: 740px) {
+        display: none;
+    }
 `
 
 const OnlineCount = styled.div`
@@ -76,6 +89,10 @@ const ChatForm = styled.form`
     display: flex;
     flex-direction: row;
     justify-content: start;
+
+    @media screen and (max-width: 500px) {
+        height: 5%;
+    }
 `
 
 const Label = styled.label`
@@ -89,6 +106,10 @@ const Input = styled.input`
     resize: none;
     padding: 5px;
     font-size: 1.5em;
+
+    @media screen and (max-width: 500px) {
+        font-size: 1em;
+    }
 `
 
 export default {

@@ -20,6 +20,10 @@ const MainBox = styled.div`
     @media screen and (max-width: 950px) {
         width: 70%;
     }
+
+    @media screen and (max-width: 500) {
+        width: 85%;
+    }
 `
 
 const MainHeader = styled.h2`
@@ -32,6 +36,10 @@ const MainHeader = styled.h2`
 
     @media screen and (max-width: 950px) {
         font-size: 2.3em;
+    }
+
+    @media screen and (max-width: 500px) {
+        font-size: 1.5em;
     }
 `
 

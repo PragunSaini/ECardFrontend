@@ -13,11 +13,21 @@ const NavBar = styled.div`
     @media screen and (max-width: 1050px) {
         margin-bottom: 30px;
     }
+
+    @media screen and (max-width: 500px) {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
 `
 
 const SubNav = styled.nav`
     text-transform: uppercase;
     font-size: 0.85em;
+
+    @media screen and (max-width: 500px) {
+        margin-top: 1em;
+    }
 `
 
 const StyledUL = styled.ul`

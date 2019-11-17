@@ -13,12 +13,24 @@ const Footer = styled.footer`
     background-blend-mode: overlay;
     border-top: 0.5px solid rgba(0, 0, 0, 0.5);
     font-size: 0.95em;
+
+    @media screen and (max-width: 500px) {
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        padding: none;
+    }
 `
 
 const MadeBy = styled.div`
     color: #fff;
     font-weight: 500;
     margin-right: 30px;
+
+    @media screen and (max-width: 500px) {
+        margin-right: 0;
+    }
 `
 
 const Group = styled.div`

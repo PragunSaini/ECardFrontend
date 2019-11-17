@@ -6,6 +6,10 @@ const Heading = styled.h2`
     text-transform: uppercase;
     font-weight: 900;
     letter-spacing: 0.25em;
+
+    @media screen and (max-width: 500px) {
+        font-size: 1.5em;
+    }
 `
 
 const Para = styled.p`
@@ -14,6 +18,10 @@ const Para = styled.p`
     margin: 3% auto;
     line-height: 1.5;
     letter-spacing: 0.01em;
+
+    @media screen and (max-width: 500px) {
+        font-size: 1em;
+    }
 `
 
 const StyledHR = styled.hr`

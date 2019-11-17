@@ -39,6 +39,10 @@ const LoginBox = styled.div`
         margin-bottom: 2em;
         width: 80%;
     }
+
+    @media screen and (max-width: 500px) {
+        width: 90%;
+    }
 `
 
 const RegBox = styled.div`
@@ -54,6 +58,10 @@ const RegBox = styled.div`
 
     @media screen and (max-width: 1050px) {
         width: 80%;
+    }
+
+    @media screen and (max-width: 500px) {
+        width: 90%;
     }
 `
 
@@ -91,6 +99,10 @@ const UserBox = styled.div`
 const Heading = styled.h2`
     font-size: 1.5em;
     margin: 30px auto 20px;
+
+    @media screen and (max-width: 500px) {
+        font-size: 1.25em;
+    }
 `
 
 const Form = styled.form`
@@ -102,6 +114,10 @@ const Form = styled.form`
 
     @media screen and (max-width: 1050px) {
         border-bottom: none;
+    }
+
+    @media screen and (max-width: 500px) {
+        width: 100%;
     }
 `
 

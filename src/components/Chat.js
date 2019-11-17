@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 
@@ -12,7 +13,7 @@ import NavBar from '../styledcomponents/NavBar'
 import ChatStyles from '../styledcomponents/ChatStyles'
 import Buttons from '../styledcomponents/Buttons'
 
-const { BackGround1 } = Layout
+const { BackGround1, Main } = Layout
 const { LoginSection, NavBox } = LoginStyles
 const { SendButton } = Buttons
 const {
@@ -51,7 +52,7 @@ const Chat = ({ user, chats, count, sendChat }) => {
     }
 
     return (
-        <div>
+        <Main>
             <BackGround1 />
             <LoginSection>
                 <Helmet>
@@ -97,10 +98,8 @@ const Chat = ({ user, chats, count, sendChat }) => {
                             />
                         </Label>
                         <SendButton onClick={sendChatMessage} type='submit'>
-                            <svg
+                            <SVG
                                 xmlns='http://www.w3.org/2000/svg'
-                                width='50'
-                                height='50'
                                 x='0'
                                 y='0'
                                 enableBackground='new 0 0 459 459'
@@ -109,14 +108,24 @@ const Chat = ({ user, chats, count, sendChat }) => {
                                 xmlSpace='preserve'
                             >
                                 <path d='M459 216.75L280.5 38.25v102c-178.5 25.5-255 153-280.5 280.5C63.75 331.5 153 290.7 280.5 290.7v104.55L459 216.75z' />
-                            </svg>
+                            </SVG>
                         </SendButton>
                     </ChatForm>
                 </ChatBox>
             </LoginSection>
-        </div>
+        </Main>
     )
 }
+
+const SVG = styled.svg`
+    width: 40px;
+    height: 40px;
+
+    @media screen and (max-width: 500px) {
+        width: 20px;
+        height: 20px;
+    }
+`
 
 const mapStateToProps = state => {
     return {
