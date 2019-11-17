@@ -21,6 +21,11 @@ const ButtonDiv = styled.div`
     @media screen and (max-width: 1050px) {
         width: 80%;
     }
+
+    @media screen and (max-width: 500px) {
+        width: 98%;
+        height: 70vh;
+    }
 `
 
 const ReadyMessage = styled.div`
@@ -30,6 +35,10 @@ const ReadyMessage = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media screen and (max-width: 500px) {
+        font-size: 1.2em;
+    }
 `
 
 const GamePage = styled.div`
@@ -266,6 +275,12 @@ const NotifyDiv = styled.div`
         100% {
             opacity: 1;
         }
+    }
+
+    @media screen and (max-width: 500px) {
+        width: 80%;
+        height: 50%;
+        font-size: 1.25em;
     }
 `
 

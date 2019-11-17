@@ -134,11 +134,11 @@ const Game = ({
                             Last Moves:
                         </CardHeader>
                         <MovesDiv>
-                            <strong>You :</strong>
+                            <strong>You </strong>
                             {returnCard(game.mylastmove)}
                             <strong>-</strong>
                             {returnCard(game.opplastmove)}
-                            <strong>: Opponent</strong>
+                            <strong> Opponent</strong>
                         </MovesDiv>
                     </LastMoves>
                     {displayDetails()}
