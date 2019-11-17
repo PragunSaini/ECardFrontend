@@ -126,75 +126,77 @@ const Game = ({
     }
 
     const displayReadyOrNot = () => {
-        // if (game.player1Ready && game.player2Ready) {
-        return (
-            <GameDiv>
-                <LastMoves>
-                    <CardHeader style={{ textAlign: 'center', padding: '0 0 0.5em 0' }}>
-                        Last Moves:
-                    </CardHeader>
-                    <MovesDiv>
-                        <strong>You :</strong>
-                        {returnCard(game.mylastmove)}
-                        <strong>-</strong>
-                        {returnCard(game.opplastmove)}
-                        <strong>: Opponent</strong>
-                    </MovesDiv>
-                </LastMoves>
-                {displayDetails()}
-                <CardsDisplay>
-                    <CardHeader>{game.gameOver ? 'Game Over' : 'Game in Progress...'}</CardHeader>
-                    {game.gameOver ? gameIsOver() : gameNotOver()}
-                </CardsDisplay>
+        if (game.player1Ready && game.player2Ready) {
+            return (
+                <GameDiv>
+                    <LastMoves>
+                        <CardHeader style={{ textAlign: 'center', padding: '0 0 0.5em 0' }}>
+                            Last Moves:
+                        </CardHeader>
+                        <MovesDiv>
+                            <strong>You :</strong>
+                            {returnCard(game.mylastmove)}
+                            <strong>-</strong>
+                            {returnCard(game.opplastmove)}
+                            <strong>: Opponent</strong>
+                        </MovesDiv>
+                    </LastMoves>
+                    {displayDetails()}
+                    <CardsDisplay>
+                        <CardHeader>
+                            {game.gameOver ? 'Game Over' : 'Game in Progress...'}
+                        </CardHeader>
+                        {game.gameOver ? gameIsOver() : gameNotOver()}
+                    </CardsDisplay>
 
-                <ScoreDisplay>
-                    <ScoreDiv>
-                        <ScoreHeader>
-                            <u>Current Score</u>
-                        </ScoreHeader>
-                        {displayRounds()}
-                        <ScoreBox>
-                            <ScoreArrow>
-                                <u>Score</u>
-                            </ScoreArrow>
-                            <ScoreArrow>You -&gt; {game.myscore}</ScoreArrow>
-                            <ScoreArrow>Opponent -&gt; {game.oppscore}</ScoreArrow>
-                        </ScoreBox>
-                    </ScoreDiv>
-                    <ChatDiv>
-                        <ChatHeader>
-                            <u>Chat with your opponent</u>
-                        </ChatHeader>
-                        <ChatBox>{getChats()}</ChatBox>
-                        <MessageDiv>
-                            <ChatInput
-                                type='text'
-                                name='roomchat'
-                                id='roomchat'
-                                value={chatmsg}
-                                onChange={e => setChatmsg(e.target.value)}
-                            />
-                            <SendButton onClick={sendChat} type='submit'>
-                                <svg
-                                    xmlns='http://www.w3.org/2000/svg'
-                                    width='25'
-                                    height='25'
-                                    x='0'
-                                    y='0'
-                                    enableBackground='new 0 0 459 459'
-                                    version='1.1'
-                                    viewBox='0 0 459 459'
-                                    xmlSpace='preserve'
-                                >
-                                    <path d='M459 216.75L280.5 38.25v102c-178.5 25.5-255 153-280.5 280.5C63.75 331.5 153 290.7 280.5 290.7v104.55L459 216.75z' />
-                                </svg>
-                            </SendButton>
-                        </MessageDiv>
-                    </ChatDiv>
-                </ScoreDisplay>
-            </GameDiv>
-        )
-        // }
+                    <ScoreDisplay>
+                        <ScoreDiv>
+                            <ScoreHeader>
+                                <u>Current Score</u>
+                            </ScoreHeader>
+                            {displayRounds()}
+                            <ScoreBox>
+                                <ScoreArrow>
+                                    <u>Score</u>
+                                </ScoreArrow>
+                                <ScoreArrow>You -&gt; {game.myscore}</ScoreArrow>
+                                <ScoreArrow>Opponent -&gt; {game.oppscore}</ScoreArrow>
+                            </ScoreBox>
+                        </ScoreDiv>
+                        <ChatDiv>
+                            <ChatHeader>
+                                <u>Chat with your opponent</u>
+                            </ChatHeader>
+                            <ChatBox>{getChats()}</ChatBox>
+                            <MessageDiv>
+                                <ChatInput
+                                    type='text'
+                                    name='roomchat'
+                                    id='roomchat'
+                                    value={chatmsg}
+                                    onChange={e => setChatmsg(e.target.value)}
+                                />
+                                <SendButton onClick={sendChat} type='submit'>
+                                    <svg
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        width='25'
+                                        height='25'
+                                        x='0'
+                                        y='0'
+                                        enableBackground='new 0 0 459 459'
+                                        version='1.1'
+                                        viewBox='0 0 459 459'
+                                        xmlSpace='preserve'
+                                    >
+                                        <path d='M459 216.75L280.5 38.25v102c-178.5 25.5-255 153-280.5 280.5C63.75 331.5 153 290.7 280.5 290.7v104.55L459 216.75z' />
+                                    </svg>
+                                </SendButton>
+                            </MessageDiv>
+                        </ChatDiv>
+                    </ScoreDisplay>
+                </GameDiv>
+            )
+        }
         return (
             <ReadyBox>
                 <ButtonDiv>
@@ -246,13 +248,11 @@ const Game = ({
     }
 
     const gameNotOver = () => {
-        const cards = ['C', 'C', 'C', 'C', 'E']
-        // game.cards here
         return (
             <>
                 <CardHeader>Your Hand</CardHeader>
                 <CardsContainer className='cards-container'>
-                    {cards.map((card, ind) => {
+                    {game.cards.map((card, ind) => {
                         // eslint-disable-next-line
                         return <Card key={ind} card={card} playCard={playCard} id={ind} />
                     })}
@@ -309,9 +309,7 @@ const Game = ({
     }
 
     const displayRounds = () => {
-        const state = [['', '', ''], ['', '', ''], ['', '', ''], ['', '', '']]
-        // GAME.state here
-        const rounds = state.map((round, i) => (
+        const rounds = game.state.map((round, i) => (
             <tr>
                 <ScoreTD>Round {i + 1}</ScoreTD>
                 {round.map(stage =>
