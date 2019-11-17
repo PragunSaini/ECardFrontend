@@ -38,7 +38,7 @@ const HomeHeader = ({ history, user, logoutUser, createNewGameRoom, joinGameRoom
 
     const renderUserOrLogin = () => {
         if (user) {
-            console.log(user.displayName)
+            // console.log(user.displayName)
             return (
                 <>
                     <NavLinks.User name={user.displayName} />

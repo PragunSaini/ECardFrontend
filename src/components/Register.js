@@ -60,7 +60,7 @@ const Register = () => {
                     duration: 1500
                 }
             })
-            console.log(`NEW USER REGISTERED`, user)
+            // console.log(`NEW USER REGISTERED`, user)
         } catch (err) {
             errorHandler(err.response.data)
         }

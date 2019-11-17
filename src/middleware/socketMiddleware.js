@@ -23,11 +23,11 @@ const socketMiddleware = store => next => action => {
         // to connect and authenticate
         case ACTIONS.CONNECT: {
             // Attach listeners
-            console.log('\n\nGONNA AUTH\n\n', data, '\n\n')
+            // console.log('\n\nGONNA AUTH\n\n', data, '\n\n')
             socket.on('connect', () => {
                 socket.emit('authentication', data)
                 socket.on('authenticated', () => {
-                    console.log('Socket authenticated')
+                    // console.log('Socket authenticated')
                     subscribeGlobalChat(store)
                     updateUserCount(store)
                     gameRoomCreated(store)
@@ -38,7 +38,7 @@ const socketMiddleware = store => next => action => {
                     // listenForGameOver(store)
                 })
                 socket.on('unauthorized', error => {
-                    console.log('Socket authenticate error', error)
+                    // console.log('Socket authenticate error', error)
                     store.dispatch({
                         type: 'FINISHED_LOADING'
                     })
