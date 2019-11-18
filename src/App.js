@@ -34,7 +34,6 @@ const App = props => {
         const token = window.localStorage.getItem('loggedEcardUser')
         if (token) {
             await firebase.auth().signInWithCustomToken(token)
-            console.log(firebase.auth().currentUser)
             authenticateSocket(firebase.auth().currentUser.uid, false, '')
         } else {
             finishLoading()
