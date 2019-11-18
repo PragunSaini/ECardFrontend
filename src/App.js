@@ -120,7 +120,6 @@ const mapDispatchToProps = {
 
 export default withRouter(
     connect(
-        mapStateToProps,
+        mapStateToProps, 
         mapDispatchToProps
-    )(App)
-)
+    )(App))
