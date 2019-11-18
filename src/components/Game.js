@@ -1,4 +1,4 @@
-/* eslint "react-hooks/exhaustive-deps": "off", "eqeqeq": "off" */
+/* eslint  "eqeqeq": "off" */
 
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'

@@ -1,4 +1,4 @@
-import { store } from 'react-notifications-component'
+import { store as notStore } from 'react-notifications-component'
 
 // Constants to identify dispatches
 export const ACTIONS = Object.freeze({
@@ -109,7 +109,7 @@ export const roomJoinError = store => {
         type: ACTIONS.SUBSCRIBE,
         event: 'no such room',
         handle: () => {
-            store.addNotification({
+            notStore.addNotification({
                 title: 'Error',
                 message: "Room with this id doesn't exist",
                 type: 'error',
@@ -128,7 +128,7 @@ export const roomJoinError = store => {
         type: ACTIONS.SUBSCRIBE,
         event: 'room full',
         handle: () => {
-            store.addNotification({
+            notStore.addNotification({
                 title: 'Error',
                 message: 'Room already full',
                 type: 'error',
@@ -147,7 +147,7 @@ export const roomJoinError = store => {
         type: ACTIONS.SUBSCRIBE,
         event: 'cannot join own room',
         handle: () => {
-            store.addNotification({
+            notStore.addNotification({
                 title: 'Error',
                 message: "Can't join your own room",
                 type: 'error',

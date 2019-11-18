@@ -47,7 +47,7 @@ const Register = () => {
     const register = async e => {
         e.preventDefault()
         try {
-            const user = await registerService.userRegister(name, email, password)
+            await registerService.userRegister(name, email, password)
             store.addNotification({
                 title: 'Succesfully registered',
                 message: 'You may now login',

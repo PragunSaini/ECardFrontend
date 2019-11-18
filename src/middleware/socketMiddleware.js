@@ -38,7 +38,7 @@ const socketMiddleware = store => next => action => {
                     // listenForGameOver(store)
                 })
                 socket.on('unauthorized', error => {
-                    // console.log('Socket authenticate error', error)
+                    console.log('Socket authenticate error', error)
                     store.dispatch({
                         type: 'FINISHED_LOADING'
                     })
