@@ -279,7 +279,7 @@ const NotifyDiv = styled.div`
 
     @media screen and (max-width: 500px) {
         width: 80%;
-        height: 50%;
+        height: 25%;
         font-size: 1.25em;
     }
 `
