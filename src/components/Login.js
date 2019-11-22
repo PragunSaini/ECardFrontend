@@ -68,7 +68,6 @@ const Login = props => {
     // Login the user
     const login = e => {
         e.preventDefault()
-        console.log("CALLED I WAS")
         setButtonsDisabled(true)
         firebase
             .auth()
