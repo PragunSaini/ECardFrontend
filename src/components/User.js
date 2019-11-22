@@ -6,7 +6,7 @@ import Buttons from '../styledcomponents/Buttons'
 
 const { UserBox, RegisterBox, ErrorBox, Heading, Form, Input, Label } = LoginStyles
 
-const User = ({ login, email, password, setValue1, setValue2, returnError }) => {
+const User = ({ login, email, password, setValue1, setValue2, returnError, buttonsDisabled }) => {
     return (
         <UserBox>
             <Heading>Already registered? Login here</Heading>
@@ -41,6 +41,7 @@ const User = ({ login, email, password, setValue1, setValue2, returnError }) => 
                     style={{
                         marginLeft: 0
                     }}
+                    disabled={buttonsDisabled}
                 >
                     Login
                 </Buttons.StyledButton>

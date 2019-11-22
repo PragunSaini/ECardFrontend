@@ -61,6 +61,9 @@ const socketMiddleware = store => next => action => {
 
         // To disconnect with server socket upon logout
         case ACTIONS.DISCONNECT: {
+            store.dispatch({
+                type: 'FINISHED_LOADING'
+            })
             unsubscribeGlobalChat(store)
             socket.disconnect()
             // We reconnect the socket after every logout,

@@ -32,7 +32,9 @@ const App = props => {
 
     const checkToken = async () => {
         const token = window.localStorage.getItem('loggedEcardUser')
-        if (token) {
+        const date = Date.parse(JSON.parse(window.localStorage.getItem('loggedEcardUserTime')))
+        const now = Date.now()
+        if (token && date && (Math.abs(date - now) / 36e5 < 1)) { // if last login was within one hours 
             await firebase.auth().signInWithCustomToken(token)
             authenticateSocket(firebase.auth().currentUser.uid, false, '')
         } else {

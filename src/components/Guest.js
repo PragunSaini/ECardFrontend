@@ -5,7 +5,7 @@ import Buttons from '../styledcomponents/Buttons'
 
 const { GuestBox, Heading, Form, Input, Label } = LoginStyles
 
-const Guest = ({ guest, setValue3, guestLogin }) => {
+const Guest = ({ guest, setValue3, guestLogin, buttonsDisabled }) => {
     return (
         <GuestBox>
             <Heading>Play as Guest</Heading>
@@ -33,6 +33,7 @@ const Guest = ({ guest, setValue3, guestLogin }) => {
                     style={{
                         marginLeft: 0
                     }}
+                    disabled={buttonsDisabled}
                 >
                     Guest Login
                 </Buttons.StyledButton>

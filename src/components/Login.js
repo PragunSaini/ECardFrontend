@@ -26,6 +26,7 @@ const Login = props => {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [guest, setGuest] = useState('')
+    const [buttonsDisabled, setButtonsDisabled] = useState(false)
 
     useEffect(() => {
         setEmail('')
@@ -67,14 +68,16 @@ const Login = props => {
     // Login the user
     const login = e => {
         e.preventDefault()
+        console.log("CALLED I WAS")
+        setButtonsDisabled(true)
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => {
                 if (firebase.auth().currentUser) {
                     // User has logged in so send thumbs up to server
-                    startLoading()
                     authenticateSocket(firebase.auth().currentUser.uid, false, '')
+                    startLoading()
                     store.addNotification({
                         title: 'Success',
                         message: 'You have logged in',
@@ -91,6 +94,7 @@ const Login = props => {
                 }
             })
             .catch(error => {
+                setButtonsDisabled(false)
                 errorhandler(error)
                 console.log(error)
                 firebase.auth().signOut()
@@ -99,6 +103,7 @@ const Login = props => {
 
     const guestLogin = e => {
         e.preventDefault()
+        setButtonsDisabled(true)
         try {
             const uid =
                 Math.random()
@@ -107,8 +112,8 @@ const Login = props => {
                 Math.random()
                     .toString(36)
                     .substring(2, 15)
-            startLoading()
             authenticateSocket(uid, true, guest)
+            startLoading()
             store.addNotification({
                 title: 'Success',
                 message: 'You have logged in',
@@ -123,6 +128,7 @@ const Login = props => {
             })
             props.history.push('/')
         } catch (error) {
+            setButtonsDisabled(false)
             errorhandler(error)
         }
     }
@@ -152,8 +158,9 @@ const Login = props => {
                         setValue1={setValue1}
                         setValue2={setValue2}
                         returnError={returnError}
+                        buttonsDisabled={buttonsDisabled}
                     />
-                    <Guest guest={guest} setValue3={setValue3} guestLogin={guestLogin} />
+                    <Guest guest={guest} setValue3={setValue3} guestLogin={guestLogin} buttonsDisabled={buttonsDisabled} />
                 </LoginBox>
             </LoginSection>
         </>

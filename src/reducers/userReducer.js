@@ -7,6 +7,7 @@ const userReducer = (state = null, action) => {
             // Save the JWT in localstorage only for registered users
             if (!action.user.guest)
                 window.localStorage.setItem('loggedEcardUser', action.user.token)
+                window.localStorage.setItem('loggedEcardUserTime', JSON.stringify(new Date()))
             return { ...action.user, token: '' }
         case 'REMOVE_USER_INFO':
             window.localStorage.clear()
